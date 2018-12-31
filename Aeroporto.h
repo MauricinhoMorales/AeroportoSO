@@ -20,6 +20,7 @@ public:
         this->nombre=nombre;
         this->terminales=NULL;
         this->aerolineas=NULL;
+        this->vuelos=NULL;
         this->horaActual=0;
         this->fecha= new Fecha(day,month,year);
         this->t1=thread(&Aeroporto::Reloj,this);
@@ -37,6 +38,7 @@ private:
 public:
     void RegistrarAerolinea(Aerolinea* aerolinea);
     void RegistrarTerminal(Terminal* Terminal);
+    void RegistrarVuelo(Vuelo* vuelo);
     void IniciarActividad();
     void CargarActividad();
     void InterrumpirActividad();
@@ -50,6 +52,8 @@ public:
     void SetHoraActual(int hora){this->horaActual=hora;}
     Fecha* getFecha(){return this->fecha;}
     void AttachedThread(){this->t1.join();}
+    char* getNombre(){return this->nombre;}
+    int VerificarEstadoVuelos();
 };
 
 

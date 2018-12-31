@@ -3,6 +3,7 @@
 //
 
 #include "Aerolinea.h"
+#include <string.h>
 
 void Aerolinea::ImprimirVuelos() {\
     cout << "Aerolinea: " << this->nombre << "\n\n";
@@ -30,4 +31,12 @@ void Aerolinea::RegistrarVuelo(Vuelo* vuelo) {
         vuelo->setNext(prev->getNext());
         prev->setNext(vuelo);
         return;
+}
+
+int Aerolinea::EstadoVuelos() {
+    int cont=0;
+    for(Vuelo*i=this->vuelos;i!=NULL;i=i->getNext()){
+        cont+=i->getEtapa();
+    }
+    return cont;
 }

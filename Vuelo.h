@@ -19,7 +19,7 @@ public:
         this->horaSalida=horaSalida;
         this->fecha=new Fecha(day,month,year);
         this->prioridad=prioridad;
-        this->etapa=0;
+        this->etapa=2;
         this->avion=avion;
         this->next=NULL;
     }
@@ -32,19 +32,25 @@ private:
     int prioridad;
     float tiempoAtencion;
     float tiempoEspera;
-    int etapa; //2 para terminado, 1 para vuelo, 0 para en espera
+    int etapa; //2 para en espera, 1 para vuelo, 0 para terminado
     Avion* avion;
     Vuelo* next;
 public:
     Vuelo* getNext(){return this->next;}
+    char* getDestino(){return this->destino;}
+    char *getOrigen(){return origen;};
+    Fecha *getFecha(){return fecha;}
     int getHora(){return this->horaSalida;}
     void setNext(Vuelo* vuelo){this->next=vuelo;}
+    int getEtapa();
+    void NextEtapa();
     void RealizarCarga();
     void RealizarDespegue();
     void RealizarVuelo();
     void RealizarAterrizaje();
     void RealizarDescarga();
     void ImprimirDatosVuelo();
+    int EstadoVuelo();
 };
 
 #endif //UNTITLED1_VUELO_H

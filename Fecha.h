@@ -24,6 +24,7 @@ public:
     int getDay(){return this->day;}
     int getMonth(){return this->month;}
     int getYear(){return this->year;}
+    void ImprimirFecha();
 
 };
 

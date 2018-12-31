@@ -3,6 +3,8 @@
 //
 
 #include "Fecha.h"
+#include <iostream>
+using namespace std;
 
 void Fecha::AddDay() {
     if(this->day==30){
@@ -20,4 +22,8 @@ void Fecha::AddMonth() {
 
 void Fecha::AddYear() {
     this->year++;
+}
+
+void Fecha::ImprimirFecha() {
+    cout << "Fecha: "<< this->day << "-" << this->month << "-"<< this->year << "\n";
 }

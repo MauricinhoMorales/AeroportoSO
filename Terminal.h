@@ -28,6 +28,7 @@ public:
     void OcuparPlataforma();
     void DesocuparPlataforma();
     void ImprimirDatosTerminal();
+    int getTipo(){return this->tipo;}
 };
 
 #endif //UNTITLED1_TERMINAL_H

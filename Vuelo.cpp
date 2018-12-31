@@ -14,19 +14,26 @@ void Vuelo::ImprimirDatosVuelo() {
     if (this->horaSalida%100<10)
         cout << "0";
     cout << this->horaSalida%100 << "\n";
-
-    cout << "Fecha: "<< this->fecha->getDay() << "-" << this->fecha->getMonth() << "-"<< this->fecha->getYear() << "\n";
-    if(this->etapa==0)
+    this->fecha->ImprimirFecha();
+    if(this->etapa==2)
         cout << "VUELO EN ESPERA\n";
     else
         if (this->etapa==1)
             cout << "VUELO EN PROCESO\n";
         else
-            if (this->etapa==2){
+            if (this->etapa==0){
                 cout << "VUELO FINALIZADO\n";
                 cout << "Tiempo de Vuelo: " << this->tiempoAtencion << "\n";
                 cout << "Tiempo de Espera: " << this->tiempoEspera << "\n";
             }
     cout << "Avion:\n";
     (this->avion)->ImprimirDatosAvion();
+}
+
+int Vuelo::getEtapa() {
+    return etapa;
+}
+
+void Vuelo::NextEtapa() {
+    this->etapa--;
 }
