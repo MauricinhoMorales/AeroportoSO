@@ -112,3 +112,7 @@ int Aeroporto::VerificarEstadoVuelos() {
     }
     return conta;
 }
+
+void Aeroporto::AttachedThread() {
+    this->t1.join();
+}

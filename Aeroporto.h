@@ -41,19 +41,21 @@ public:
 
     void RegistrarAerolinea(Aerolinea* aerolinea);
     void RegistrarTerminal(Terminal* Terminal);
-    void RegistrarVuelo(Vuelo* vuelo);
+
     void IniciarGestion();
     void CargarArchivo();
-    void InterrumpirActividad();
-    void ComenzarActividad();
-    void RetomarActividad();
     void GenerarInforme();
+
+    void ComenzarActividad();
+    void InterrumpirActividad();
+    void RetomarActividad();
     void CierreActividad();
+
     void OcuparPista(int num);
     void DesocuparPista(int num);
-    void IniciarHora();
+
     void Reloj();
-    void AttachedThread(){this->t1.join();}
+    void AttachedThread();
     int VerificarEstadoVuelos();
 
     void ImprimirInforme();
