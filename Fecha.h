@@ -18,12 +18,14 @@ private:
     int month;
     int year;
 public:
-    void AddDay();
-    void AddMonth();
-    void AddYear();
     int getDay(){return this->day;}
     int getMonth(){return this->month;}
     int getYear(){return this->year;}
+
+    void AddDay();
+    void AddMonth();
+    void AddYear();
+
     void ImprimirFecha();
 
 };

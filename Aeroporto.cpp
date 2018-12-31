@@ -4,15 +4,38 @@
 
 #include "Aeroporto.h"
 
-void Aeroporto::CargarActividad() {
-    //Cargar en el archivo
+void Aeroporto::ComenzarActividad(){  // como se ordena el beta
+    this->CargarArchivo();
+    this->IniciarGestion();
 }
 
-void Aeroporto::CierreActividad() {
-    //Final
+void Aeroporto::InterrumpirActividad() {   //OPCION DE MENU PARA PARAR ACTIVIDAD
+    this->GenerarInforme();
+    this->ImprimirInforme();
 }
-void *Aeroporto::Reloj() {
-    while(true){
+
+void Aeroporto::RetomarActividad() { // OPCION DE MENU PARA RETOMAR ACTIVIDAD
+    this->ComenzarActividad();
+}
+
+void Aeroporto::CierreActividad() {    // OPCION DEL MENU CERRAR
+    exit(1);
+}
+
+void Aeroporto::IniciarGestion() {    //REALIZAR LA GESTION
+
+}
+
+void Aeroporto::CargarArchivo() {    //CARGAR ESTRUCTURAS LEER DEL ARCHIVO
+
+}
+
+void Aeroporto::GenerarInforme() {      //ESCRIBIR EN EL ARCHIVO
+
+}
+
+void Aeroporto::Reloj() {
+    while(this->VerificarEstadoVuelos()){
         for(long int i=0;i<segundo;i++);
         if(this->horaActual->AddTime())
             this->fecha->AddDay();
@@ -21,18 +44,6 @@ void *Aeroporto::Reloj() {
     }
 }
 
-void Aeroporto::GenerarInforme() {
-    //Escribir en el archivo
-}
-
-void Aeroporto::IniciarActividad() {
-
-
-}
-void Aeroporto::InterrumpirActividad() {
-    this->GenerarInforme();
-    this->ImprimirInforme();
-}
 void Aeroporto::ImprimirInforme() {
     cout << "----------AEROPUERTO---------\n";
     cout << this->nombre << "\n";
@@ -90,27 +101,6 @@ void Aeroporto::RegistrarAerolinea(Aerolinea* aerolinea) {
     }
     aerolinea->setNext(i);
     prev->setNext(aerolinea);
-    return;
-}
-
-void Aeroporto::RegistrarVuelo(Vuelo* vuelo) {
-    Vuelo *k,*previ;
-    if (this->vuelos==NULL) {
-        this->vuelos = vuelo;
-        return;
-    }
-    for(k=this->vuelos,previ=NULL;(k!=NULL) && (vuelo->getHoraSalida()->getHora()>k->getHoraSalida()->getHora());previ=k,k=k->getNext());
-    if(k==NULL){
-        previ->setNext(vuelo);
-        return;
-    }
-    if(previ==NULL){
-        this->vuelos=vuelo;
-        vuelo->setNext(k);
-        return;
-    }
-    vuelo->setNext(k);
-    previ->setNext(vuelo);
     return;
 }
 

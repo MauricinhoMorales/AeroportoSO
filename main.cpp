@@ -24,6 +24,7 @@ int main() {
     aeropuerto->RegistrarAerolinea(aerolinea2);
     aeropuerto->RegistrarAerolinea(aerolinea1);
     aeropuerto->ImprimirInforme();
+    //aeropuerto->CierreActividad();
     aeropuerto->AttachedThread();
 
 }

@@ -36,23 +36,27 @@ private:
     Fecha* fecha;
     thread t1;
 public:
+    char* getNombre(){return this->nombre;}
+    Fecha* getFecha(){return this->fecha;}
+
     void RegistrarAerolinea(Aerolinea* aerolinea);
     void RegistrarTerminal(Terminal* Terminal);
     void RegistrarVuelo(Vuelo* vuelo);
-    void IniciarActividad();
-    void CargarActividad();
+    void IniciarGestion();
+    void CargarArchivo();
     void InterrumpirActividad();
+    void ComenzarActividad();
+    void RetomarActividad();
     void GenerarInforme();
     void CierreActividad();
     void OcuparPista(int num);
     void DesocuparPista(int num);
-    void ImprimirInforme();
     void IniciarHora();
-    void * Reloj();
-    Fecha* getFecha(){return this->fecha;}
+    void Reloj();
     void AttachedThread(){this->t1.join();}
-    char* getNombre(){return this->nombre;}
     int VerificarEstadoVuelos();
+
+    void ImprimirInforme();
 };
 
 

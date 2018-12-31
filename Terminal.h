@@ -24,11 +24,14 @@ private:
     Terminal* next;
 public:
     Terminal* getNext(){return this->next;}
+    int getTipo(){return this->tipo;}
+
     void setNext(Terminal* terminal){this->next=terminal;}
+
     void OcuparPlataforma();
     void DesocuparPlataforma();
+
     void ImprimirDatosTerminal();
-    int getTipo(){return this->tipo;}
 };
 
 #endif //UNTITLED1_TERMINAL_H

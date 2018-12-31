@@ -25,12 +25,15 @@ private:
     Aerolinea* next;
 public:
     Aerolinea* getNext(){return this->next;}
-    void setNext (Aerolinea* aerolinea){this->next=aerolinea;}
-    void RegistrarVuelo(Vuelo* vuelo);
-    void ImprimirVuelos();
     char * getNombre(){return this->nombre;}
     Vuelo* getVuelos(){return this->vuelos;}
+
+    void setNext (Aerolinea* aerolinea){this->next=aerolinea;}
+
+    void RegistrarVuelo(Vuelo* vuelo);
     int EstadoVuelos();
+
+    void ImprimirVuelos();
 };
 
 

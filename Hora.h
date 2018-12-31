@@ -14,10 +14,11 @@ public:
 private:
     int hora;
 public:
-    void ImprimirHora();
-    int AddTime();
     int getHora(){return hora;}
 
+    int AddTime();
+
+    void ImprimirHora();
 };
 
 

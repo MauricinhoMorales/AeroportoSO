@@ -31,6 +31,7 @@ public:
     int CalcularTiempoCarga();
     int CalcularTiempoDescarga();
     int CalcularTiempoReabastecimiento();
+
     void ImprimirDatosAvion();
 };
 

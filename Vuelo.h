@@ -41,16 +41,18 @@ public:
     char* getDestino(){return this->destino;}
     char *getOrigen(){return origen;};
     Hora *getHoraSalida();
-    void setNext(Vuelo* vuelo){this->next=vuelo;}
     int getEtapa();
+
+    void setNext(Vuelo* vuelo){this->next=vuelo;}
+
     void NextEtapa();
     void RealizarCarga();
     void RealizarDespegue();
     void RealizarVuelo();
     void RealizarAterrizaje();
     void RealizarDescarga();
+
     void ImprimirDatosVuelo();
-    int EstadoVuelo();
 };
 
 #endif //UNTITLED1_VUELO_H
