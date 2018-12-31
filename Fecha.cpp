@@ -25,5 +25,11 @@ void Fecha::AddYear() {
 }
 
 void Fecha::ImprimirFecha() {
-    cout << "Fecha: "<< this->day << "-" << this->month << "-"<< this->year << "\n";
+    cout << "Fecha: ";
+    if (this->day<10)
+        cout << "0";
+    cout << this->day << "-";
+    if(this->month<10)
+        cout << "0";
+    cout << this->month << "-"<< this->year << "\n";
 }

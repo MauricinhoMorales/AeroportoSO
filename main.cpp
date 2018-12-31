@@ -4,7 +4,7 @@
 #include <windows.h>
 
 int main() {
-    Aeroporto* aeropuerto= new Aeroporto("SAO PAOLO",2,2,4,2010);
+    Aeroporto* aeropuerto= new Aeroporto("SAO PAOLO",2,0,2,4,2010);
     Terminal* terminal1= new Terminal("CR20",10,10,0);
     Terminal* terminal2= new Terminal("TE12",5,4,0);
     Terminal* terminal3= new Terminal("QW01",7,5,1);

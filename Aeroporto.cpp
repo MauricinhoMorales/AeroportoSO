@@ -12,27 +12,13 @@ void Aeroporto::CierreActividad() {
     //Final
 }
 void *Aeroporto::Reloj() {
-    int horaActual=this->horaActual;
     while(true){
         for(long int i=0;i<segundo;i++);
-        horaActual++;
-        if(horaActual%100==60){
-            horaActual+=40;
-            if (horaActual==2400){
-                horaActual=0;
-                this->fecha->AddDay();
-            }
-        }
-        this->horaActual=horaActual;
-        cout << "Hora Actual: ";
-        if (int(this->horaActual/ 100)<10)
-            cout <<"0";
-        cout << int(this->horaActual / 100) << ":";
-        if (this->horaActual%100<10)
-            cout << "0";
-        cout << this->horaActual%100 << "\n";
+        if(this->horaActual->AddTime())
+            this->fecha->AddDay();
+        this->horaActual->ImprimirHora();
+        this->fecha->ImprimirFecha();
     }
-    return NULL;
 }
 
 void Aeroporto::GenerarInforme() {
@@ -113,7 +99,7 @@ void Aeroporto::RegistrarVuelo(Vuelo* vuelo) {
         this->vuelos = vuelo;
         return;
     }
-    for(k=this->vuelos,previ=NULL;(k!=NULL) && (vuelo->getHora()>k->getHora());previ=k,k=k->getNext());
+    for(k=this->vuelos,previ=NULL;(k!=NULL) && (vuelo->getHoraSalida()->getHora()>k->getHoraSalida()->getHora());previ=k,k=k->getNext());
     if(k==NULL){
         previ->setNext(vuelo);
         return;

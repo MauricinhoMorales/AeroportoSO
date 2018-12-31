@@ -8,6 +8,7 @@
 #include "Avion.h"
 #include <iostream>
 #include "Fecha.h"
+#include "Hora.h"
 using namespace std;
 
 class Vuelo {
@@ -16,7 +17,7 @@ public:
         this->codigo=codigo;
         this->origen=origen;
         this->destino=destino;
-        this->horaSalida=horaSalida;
+        this->horaSalida=new Hora(horaSalida);
         this->fecha=new Fecha(day,month,year);
         this->prioridad=prioridad;
         this->etapa=2;
@@ -28,7 +29,7 @@ private:
     char* origen;
     char* destino;
     Fecha* fecha;
-    int horaSalida;
+    Hora* horaSalida;
     int prioridad;
     float tiempoAtencion;
     float tiempoEspera;
@@ -39,8 +40,7 @@ public:
     Vuelo* getNext(){return this->next;}
     char* getDestino(){return this->destino;}
     char *getOrigen(){return origen;};
-    Fecha *getFecha(){return fecha;}
-    int getHora(){return this->horaSalida;}
+    Hora *getHoraSalida();
     void setNext(Vuelo* vuelo){this->next=vuelo;}
     int getEtapa();
     void NextEtapa();

@@ -16,17 +16,17 @@ using namespace std;
 
 class Aeroporto {
 public:
-    Aeroporto(char*nombre,int numeroPistas,int day, int month, int year){
+    Aeroporto(char*nombre,int numeroPistas,int hora,int day, int month, int year){
         this->nombre=nombre;
         this->terminales=NULL;
         this->aerolineas=NULL;
         this->vuelos=NULL;
-        this->horaActual=0;
+        this->horaActual= new Hora(hora);
         this->fecha= new Fecha(day,month,year);
         this->t1=thread(&Aeroporto::Reloj,this);
     }
 private:
-    int horaActual;
+    Hora* horaActual;
     char* nombre;
     //mutex pista[2];
     int TiempOperante;
@@ -49,7 +49,6 @@ public:
     void ImprimirInforme();
     void IniciarHora();
     void * Reloj();
-    void SetHoraActual(int hora){this->horaActual=hora;}
     Fecha* getFecha(){return this->fecha;}
     void AttachedThread(){this->t1.join();}
     char* getNombre(){return this->nombre;}

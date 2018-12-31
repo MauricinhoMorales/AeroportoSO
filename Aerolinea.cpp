@@ -18,7 +18,7 @@ void Aerolinea::RegistrarVuelo(Vuelo* vuelo) {
         this->vuelos = vuelo;
         return;
     }
-    for(i=this->vuelos,prev=NULL;(i!=NULL) && (vuelo->getHora()>i->getHora());prev=i,i=i->getNext());
+    for(i=this->vuelos,prev=NULL;(i!=NULL) && (vuelo->getHoraSalida()->getHora()>i->getHoraSalida()->getHora());prev=i,i=i->getNext());
         if(i==NULL){
             prev->setNext(vuelo);
             return;

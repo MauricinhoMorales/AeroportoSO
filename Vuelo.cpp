@@ -7,13 +7,7 @@
 void Vuelo::ImprimirDatosVuelo() {
     cout << "Codigo: "<< this->codigo<<"\n";
     cout << "Origen: " << this->origen << " - Destino: " << this->destino <<"\n";
-    cout << "Hora de Salida: ";
-    if (int(this->horaSalida / 100)<10)
-        cout <<"0";
-    cout << int(this->horaSalida / 100) << ":";
-    if (this->horaSalida%100<10)
-        cout << "0";
-    cout << this->horaSalida%100 << "\n";
+    this->horaSalida->ImprimirHora();
     this->fecha->ImprimirFecha();
     if(this->etapa==2)
         cout << "VUELO EN ESPERA\n";
@@ -36,4 +30,8 @@ int Vuelo::getEtapa() {
 
 void Vuelo::NextEtapa() {
     this->etapa--;
+}
+
+Hora *Vuelo::getHoraSalida(){
+    return horaSalida;
 }
