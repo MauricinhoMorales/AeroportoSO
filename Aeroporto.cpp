@@ -41,6 +41,7 @@ void Aeroporto::GenerarInforme() {
 
 void Aeroporto::IniciarActividad() {
 
+    
 }
 void Aeroporto::InterrumpirActividad() {
     this->GenerarInforme();
