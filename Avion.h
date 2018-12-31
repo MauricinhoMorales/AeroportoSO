@@ -2,12 +2,10 @@
 // Created by Mauricio on 28-12-2018.
 //
 
-#include <iostream>
-using namespace std;
-
 #ifndef UNTITLED1_AVION_H
 #define UNTITLED1_AVION_H
-
+#include <iostream>
+using namespace std;
 
 class Avion {
 public:

@@ -6,6 +6,8 @@
 #define UNTITLED1_AEROLINEA_H
 
 #include "Vuelo.h"
+#include <iostream>
+using namespace std;
 
 class Aerolinea {
 public:

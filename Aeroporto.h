@@ -7,21 +7,33 @@
 
 #include "Terminal.h"
 #include "Aerolinea.h"
+#include <iostream>
+#include <thread>
+
+long int const segundo=320000000;
+
+using namespace std;
 
 class Aeroporto {
 public:
-    Aeroporto(char*nombre,int numeroPistas){
+    Aeroporto(char*nombre,int numeroPistas,int day, int month, int year){
         this->nombre=nombre;
-        this->pistasDisponibles=numeroPistas;
         this->terminales=NULL;
         this->aerolineas=NULL;
+        this->horaActual=0;
+        this->fecha= new Fecha(day,month,year);
+        this->t1=thread(&Aeroporto::Reloj,this);
     }
 private:
+    int horaActual;
     char* nombre;
-    int pistasDisponibles;
-    int operante;
+    //mutex pista[2];
+    int TiempOperante;
     Terminal* terminales;
     Aerolinea* aerolineas;
+    Vuelo* vuelos;
+    Fecha* fecha;
+    thread t1;
 public:
     void RegistrarAerolinea(Aerolinea* aerolinea);
     void RegistrarTerminal(Terminal* Terminal);
@@ -30,9 +42,14 @@ public:
     void InterrumpirActividad();
     void GenerarInforme();
     void CierreActividad();
-    void OcuparPista();
-    void DesocuparPista();
+    void OcuparPista(int num);
+    void DesocuparPista(int num);
     void ImprimirInforme();
+    void IniciarHora();
+    void * Reloj();
+    void SetHoraActual(int hora){this->horaActual=hora;}
+    Fecha* getFecha(){return this->fecha;}
+    void AttachedThread(){this->t1.join();}
 };
 
 

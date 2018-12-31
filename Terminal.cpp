@@ -11,4 +11,5 @@ void Terminal::ImprimirDatosTerminal() {
     cout << "Codigo: "<< this->codigo<<"\n";
     cout << "Numero de Plataformas : " << this->numPlataformas << "\n";
     cout << "Plataformas Disponibles : " << this->disponibles << "\n\n";
+
 }

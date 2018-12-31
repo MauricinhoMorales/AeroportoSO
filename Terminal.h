@@ -1,12 +1,11 @@
 //
 // Created by Mauricio on 27-12-2018.
 //
-#include <iostream>
-using namespace std;
 
 #ifndef UNTITLED1_TERMINAL_H
 #define UNTITLED1_TERMINAL_H
-
+#include <iostream>
+using namespace std;
 
 class Terminal {
 public:

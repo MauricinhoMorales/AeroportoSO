@@ -5,31 +5,50 @@
 #include "Aeroporto.h"
 
 void Aeroporto::CargarActividad() {
-
+    //Cargar en el archivo
 }
 
 void Aeroporto::CierreActividad() {
-
+    //Final
 }
-void Aeroporto::DesocuparPista() {
-    (this->pistasDisponibles)++;
-}
-void Aeroporto::OcuparPista() {
-    (this->pistasDisponibles)--;
+void *Aeroporto::Reloj() {
+    int horaActual=this->horaActual;
+    while(true){ //this->vuelos!=NULL
+        for(long int i=0;i<segundo;i++);
+        horaActual++;
+        if(horaActual%100==60){
+            horaActual+=40;
+            if (horaActual==2400){
+                horaActual=0;
+                this->fecha->AddDay();
+            }
+        }
+        this->horaActual=horaActual;
+        cout << "Hora Actual: ";
+        if (int(this->horaActual/ 100)<10)
+            cout <<"0";
+        cout << int(this->horaActual / 100) << ":";
+        if (this->horaActual%100<10)
+            cout << "0";
+        cout << this->horaActual%100 << "\n";
+    }
+    return NULL;
 }
 
 void Aeroporto::GenerarInforme() {
-
+    //Escribir en el archivo
 }
 
 void Aeroporto::IniciarActividad() {
 
 }
 void Aeroporto::InterrumpirActividad() {
-
+    this->GenerarInforme();
+    this->ImprimirInforme();
 }
 void Aeroporto::ImprimirInforme() {
-    cout << "Aeropuerto: " << this->nombre << "\n\n";
+    cout << "----------AEROPUERTO---------\n";
+    cout << this->nombre << "\n";
     cout << "----------AEROLINEAS---------\n";
     for(Aerolinea* i=this->aerolineas;i!=NULL;i=i->getNext())
         i->ImprimirVuelos();

@@ -9,18 +9,25 @@ void Aerolinea::ImprimirVuelos() {\
     cout << "VUELOS\n\n";
     for(Vuelo* i=this->vuelos;i!=NULL;i=i->getNext())
         i->ImprimirDatosVuelo();
-    cout << "\n";
 }
 
 void Aerolinea::RegistrarVuelo(Vuelo* vuelo) {
-    Vuelo* i;
+    Vuelo *i,*prev;
     if (this->vuelos==NULL) {
         this->vuelos = vuelo;
         return;
     }
-    for(i=this->vuelos;i!=NULL;i=i->getNext())
-        if(i->getNext()==NULL){
-            i->setNext(vuelo);
+    for(i=this->vuelos,prev=NULL;(i!=NULL) && (vuelo->getHora()>i->getHora());prev=i,i=i->getNext());
+        if(i==NULL){
+            prev->setNext(vuelo);
             return;
         }
+        if(prev==NULL){
+            this->vuelos=vuelo;
+            vuelo->setNext(i);
+            return;
+        }
+        vuelo->setNext(prev->getNext());
+        prev->setNext(vuelo);
+        return;
 }
