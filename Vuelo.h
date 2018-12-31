@@ -31,6 +31,7 @@ private:
     Fecha* fecha;
     Hora* horaSalida;
     int prioridad;
+    float tiempoVuelo;
     float tiempoAtencion;
     float tiempoEspera;
     int etapa; //2 para en espera, 1 para vuelo, 0 para terminado
@@ -44,8 +45,8 @@ public:
     int getEtapa();
 
     void setNext(Vuelo* vuelo){this->next=vuelo;}
-
     void NextEtapa();
+
     void RealizarCarga();
     void RealizarDespegue();
     void RealizarVuelo();

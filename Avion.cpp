@@ -12,5 +12,14 @@ void Avion::ImprimirDatosAvion() {
     }else{
         cout << " Avion de Carga\n";
         cout << " Codigo: " << this->codigo << "\n";
+        cout << " Capacidad: " << this->capacidad << " toneladas\n\n";
     }
+}
+
+int Avion::CalcularTiempoCargaDescarga() {
+    return (sqrt(this->capacidad)*2);
+}
+
+int Avion::CalcularTiempoReabastecimiento() {
+    return sqrt(this->capacidad);
 }

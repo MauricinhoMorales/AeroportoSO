@@ -12,17 +12,16 @@ using namespace std;
 
 class Aerolinea {
 public:
-    Aerolinea(char* nombre,char * aeropuerto){
+    Aerolinea(char* nombre){
          this->nombre=nombre;
-         this->aeropuerto=aeropuerto;
          this->vuelos=NULL;
          this->next=NULL;
     }
 private:
     char* nombre;
-    char* aeropuerto;
     Vuelo* vuelos;
     Aerolinea* next;
+
 public:
     Aerolinea* getNext(){return this->next;}
     char * getNombre(){return this->nombre;}
@@ -32,6 +31,7 @@ public:
 
     void RegistrarVuelo(Vuelo* vuelo);
     int EstadoVuelos();
+    int VuelosAtendidos();
 
     void ImprimirVuelos();
 };

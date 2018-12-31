@@ -5,6 +5,7 @@
 #ifndef UNTITLED1_AVION_H
 #define UNTITLED1_AVION_H
 #include <iostream>
+#include<math.h>
 using namespace std;
 
 class Avion {
@@ -28,8 +29,8 @@ public:
     void RealizarCarga();
     void RealizarDescarga();
     void ReaizarReabastecimiento();
-    int CalcularTiempoCarga();
-    int CalcularTiempoDescarga();
+
+    int CalcularTiempoCargaDescarga();
     int CalcularTiempoReabastecimiento();
 
     void ImprimirDatosAvion();

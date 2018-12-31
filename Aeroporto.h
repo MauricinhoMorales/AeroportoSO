@@ -7,6 +7,7 @@
 
 #include "Terminal.h"
 #include "Aerolinea.h"
+#include "Registro.h"
 #include <iostream>
 #include <thread>
 
@@ -21,6 +22,7 @@ public:
         this->terminales=NULL;
         this->aerolineas=NULL;
         this->vuelos=NULL;
+        this->registros=NULL;
         this->horaActual= new Hora(hora);
         this->fecha= new Fecha(day,month,year);
         this->t1=thread(&Aeroporto::Reloj,this);
@@ -28,6 +30,7 @@ public:
 private:
     Hora* horaActual;
     char* nombre;
+    int vuelosAtendidos;
     //mutex pista[2];
     int TiempOperante;
     Terminal* terminales;
@@ -35,6 +38,7 @@ private:
     Vuelo* vuelos;
     Fecha* fecha;
     thread t1;
+    Registro* registros;
 public:
     char* getNombre(){return this->nombre;}
     Fecha* getFecha(){return this->fecha;}
@@ -50,6 +54,7 @@ public:
     void InterrumpirActividad();
     void RetomarActividad();
     void CierreActividad();
+    void ActualizarVuelosAtendidos();
 
     void OcuparPista(int num);
     void DesocuparPista(int num);

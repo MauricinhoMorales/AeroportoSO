@@ -104,6 +104,10 @@ void Aeroporto::RegistrarAerolinea(Aerolinea* aerolinea) {
     return;
 }
 
+void Aeroporto::AttachedThread() {
+    this->t1.join();
+}
+
 int Aeroporto::VerificarEstadoVuelos() {
     int conta=0;
     Aerolinea *i;
@@ -113,6 +117,11 @@ int Aeroporto::VerificarEstadoVuelos() {
     return conta;
 }
 
-void Aeroporto::AttachedThread() {
-    this->t1.join();
+void Aeroporto::ActualizarVuelosAtendidos() {
+    int conta=0;
+    Aerolinea *i;
+    for(i=this->aerolineas;i!=NULL;i=i->getNext()){
+        conta+=i->VuelosAtendidos();
+    }
+    this->vuelosAtendidos=conta;
 }

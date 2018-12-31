@@ -40,3 +40,12 @@ int Aerolinea::EstadoVuelos() {
     }
     return cont;
 }
+
+int Aerolinea::VuelosAtendidos(){
+    int cont=0;
+    for(Vuelo*i=this->vuelos;i!=NULL;i=i->getNext()){
+        if(i->getEtapa()==0)
+            cont++;
+    }
+    return cont;
+}
