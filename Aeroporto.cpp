@@ -125,3 +125,13 @@ void Aeroporto::ActualizarVuelosAtendidos() {
     }
     this->vuelosAtendidos=conta;
 }
+
+void Aeroporto::CrearVuelo() {
+
+}
+
+void Aeroporto::IniciarDespegues() {
+    thread t;
+
+    
+}

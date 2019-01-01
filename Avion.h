@@ -12,6 +12,9 @@ class Avion {
 public:
     Avion(char* codigo,float velocidad,int capacidad,int tipo){
       this->codigo=codigo;
+      this->tiempoCarga=this->CalcularTiempoCargaDescarga();
+      this->tiempoDescarga=this->CalcularTiempoCargaDescarga();
+      this->tiempoRestablecimiento=this->CalcularTiempoReabastecimiento();
       this->velocidadPromedio=velocidad;
       this->capacidad=capacidad;
       this->tipo=tipo;
@@ -26,10 +29,6 @@ private:
     int tipo;//0 para avion comercial y 1 para avion de carga
 
 public:
-    void RealizarCarga();
-    void RealizarDescarga();
-    void ReaizarReabastecimiento();
-
     int CalcularTiempoCargaDescarga();
     int CalcularTiempoReabastecimiento();
 

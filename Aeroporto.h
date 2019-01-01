@@ -62,6 +62,8 @@ public:
     void Reloj();
     void AttachedThread();
     int VerificarEstadoVuelos();
+    void IniciarDespegues();
+    void CrearVuelo();
 
     void ImprimirInforme();
 };
