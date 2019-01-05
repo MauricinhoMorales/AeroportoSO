@@ -14,12 +14,31 @@ void Avion::ImprimirDatosAvion() {
         cout << " Codigo: " << this->codigo << "\n";
         cout << " Capacidad: " << this->capacidad << " toneladas\n\n";
     }
+    cout << " Tiempo DespegueCargaDescarga: " << this->getTiempoCargaDescarga() << "\n";
+    cout << " Tiempo DespegueAterrizaje: " << this->getTiempoDespegueAterrizaje() << "\n";
+    cout << " Tiempo Reabastecimiento: " << this->getTiempoReabastecimiento() << "\n\n";
 }
 
 int Avion::CalcularTiempoCargaDescarga() {
-    return (sqrt(this->capacidad)*2);
+    return ((int)(sqrt(this->capacidad)*2));
 }
 
 int Avion::CalcularTiempoReabastecimiento() {
-    return sqrt(this->capacidad);
+    return ((int)(sqrt(this->capacidad)));
 }
+
+int Avion::CalcularTiempoDespegueAterrizaje(){
+    return ((int)(sqrt(sqrt(this->capacidad))));
+}
+
+int Avion::getTiempoCargaDescarga(){
+    return tiempoCargaDescarga;
+}
+int Avion::getTiempoReabastecimiento(){
+    return tiempoReabastecimiento;
+}
+
+int Avion::getTiempoDespegueAterrizaje(){
+    return this->tiempoDespegueAterrizaje;
+}
+

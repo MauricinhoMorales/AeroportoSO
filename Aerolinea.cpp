@@ -5,46 +5,32 @@
 #include "Aerolinea.h"
 #include <string.h>
 
-void Aerolinea::ImprimirVuelos() {\
+void Aerolinea::ImprimirVuelos() {
     cout << "Aerolinea: " << this->nombre << "\n\n";
     cout << "VUELOS\n\n";
-    for(Vuelo* i=this->vuelos;i!=NULL;i=i->getNext())
-        i->ImprimirDatosVuelo();
+    for(list<Vuelo>::iterator it=this->vuelos.begin();it!=this->vuelos.end();it++)
+        (*it).ImprimirDatosVuelo();
 }
 
 void Aerolinea::RegistrarVuelo(Vuelo* vuelo) {
-    Vuelo *i,*prev;
-    if (this->vuelos==NULL) {
-        this->vuelos = vuelo;
-        return;
-    }
-    for(i=this->vuelos,prev=NULL;(i!=NULL) && (vuelo->getHoraSalida()->getHora()>i->getHoraSalida()->getHora());prev=i,i=i->getNext());
-        if(i==NULL){
-            prev->setNext(vuelo);
-            return;
-        }
-        if(prev==NULL){
-            this->vuelos=vuelo;
-            vuelo->setNext(i);
-            return;
-        }
-        vuelo->setNext(prev->getNext());
-        prev->setNext(vuelo);
-        return;
+    list<Vuelo>::iterator it;
+    for(it=this->vuelos.begin();(it!=this->vuelos.end()) && (vuelo->getHoraSalida()->getHora()>(*it).getHoraSalida()->getHora());it++);
+    this->vuelos.insert(it,*vuelo);
+
 }
 
 int Aerolinea::EstadoVuelos() {
     int cont=0;
-    for(Vuelo*i=this->vuelos;i!=NULL;i=i->getNext()){
-        cont+=i->getEtapa();
+    for(list<Vuelo>::iterator it=this->vuelos.begin();it!=this->vuelos.end();it++){
+        cont+=(*it).getEtapa();
     }
     return cont;
 }
 
 int Aerolinea::VuelosAtendidos(){
     int cont=0;
-    for(Vuelo*i=this->vuelos;i!=NULL;i=i->getNext()){
-        if(i->getEtapa()==0)
+    for(list<Vuelo>::iterator it=this->vuelos.begin();it!=this->vuelos.end();it++){
+        if((*it).getEtapa()==0)
             cont++;
     }
     return cont;

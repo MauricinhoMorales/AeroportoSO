@@ -23,7 +23,40 @@ void Aeroporto::CierreActividad() {    // OPCION DEL MENU CERRAR
 }
 
 void Aeroporto::IniciarGestion() {    //REALIZAR LA GESTION
+    while(this->VerificarEstadoVuelos()){
+        for(long int i=0;i<segundo;i++);
+        if(this->horaActual->AddTime())
+            this->fecha->AddDay();
+        this->horaActual->ImprimirHora();
+        this->fecha->ImprimirFecha();
 
+        for(list<Vuelo>::iterator it=this->vuelos.begin();it!=this->vuelos.end();it++){
+            int tipo = (this->nombre==(*it).getOrigen());
+            if((*it).getHoraSalida()->getHora()==this->horaActual->getHora())
+                (*it).InicioVuelo();
+            else
+                if((*it).getHoraCarga()->getHora()==this->horaActual->getHora())
+                    (*it).CargaRealizada();
+                else
+                    if((*it).getHoraDespegue()->getHora()==this->horaActual->getHora())
+                        (*it).DespegueRealizado();
+                    else
+                        if((*it).getHoraVuelo()->getHora()==this->horaActual->getHora())
+                            (*it).VueloRealizado();
+                        else
+                            if((*it).getHoraAterrizaje()->getHora()==this->horaActual->getHora())
+                                (*it).AterrizajeRealizado();
+                            else
+                                if((*it).getHoraDescarga()->getHora()==this->horaActual->getHora())
+                                    (*it).DescargaRealizada();
+                                else
+                                    if((*it).getHoraFinalizar()->getHora()==this->horaActual->getHora())
+                                        (*it).FinVuelo();
+        }
+        this->ActualizarColaVuelos();
+        this->ImprimirInforme();
+
+    }
 }
 
 void Aeroporto::CargarArchivo() {    //CARGAR ESTRUCTURAS LEER DEL ARCHIVO
@@ -34,104 +67,84 @@ void Aeroporto::GenerarInforme() {      //ESCRIBIR EN EL ARCHIVO
 
 }
 
-void Aeroporto::Reloj() {
-    while(this->VerificarEstadoVuelos()){
-        for(long int i=0;i<segundo;i++);
-        if(this->horaActual->AddTime())
-            this->fecha->AddDay();
-        this->horaActual->ImprimirHora();
-        this->fecha->ImprimirFecha();
-    }
-}
-
 void Aeroporto::ImprimirInforme() {
-    cout << "----------AEROPUERTO---------\n";
-    cout << this->nombre << "\n";
-    cout << "----------AEROLINEAS---------\n";
-    for(Aerolinea* i=this->aerolineas;i!=NULL;i=i->getNext())
-        i->ImprimirVuelos();
+//    cout << "----------AEROPUERTO---------\n";
+//    cout << this->nombre << "\n";
+//    cout << "----------AEROLINEAS---------\n";
+//    for(list<Aerolinea>::iterator it=this->aerolineas.begin();it!=this->aerolineas.end();it++)
+//        (*it).ImprimirVuelos();
+//    cout << "\n";
+//    cout << "----------TERMINALES---------\n";
+//    for(list<Terminal>::iterator it=this->terminales.begin();it!=this->terminales.end();it++)
+//        (*it).ImprimirDatosTerminal();
+//    cout << "\n";
+//    cout << "----------VUELOS---------\n";
+//    for(list<Vuelo>::iterator it=this->vuelos.begin();it!=this->vuelos.end();it++)
+//        (*it).ImprimirDatosVuelo();
+//    cout << "\n";
+    cout << "----------COLAVUELOS---------\n";
+    for(list<Vuelo>::iterator it=this->colaVuelos.begin();it!=this->colaVuelos.end();it++)
+        (*it).ImprimirDatosVuelo();
     cout << "\n";
-    cout << "----------TERMINALES---------\n";
-    for(Terminal* i=this->terminales;i!=NULL;i=i->getNext())
-        i->ImprimirDatosTerminal();
-    cout << "\n";
-    cout << "----------VUELOS---------\n";
-    for(Vuelo* i=this->vuelos;i!=NULL;i=i->getNext())
-        i->ImprimirDatosVuelo();
-    cout << "\n";
+
 }
 
 void Aeroporto::RegistrarTerminal(Terminal* terminal) {
-    Terminal* i,*prev;
-    if (this->terminales==NULL) {
-        this->terminales = terminal;
-        return;
-    }
-    for(i=this->terminales,prev=NULL;(i!=NULL) && (terminal->getTipo()>i->getTipo());prev=i,i=i->getNext());
-        if(i==NULL){
-            prev->setNext(terminal);
-            return;
-        }
-        if(prev==NULL){
-            this->terminales=terminal;
-            terminal->setNext(i);
-            return;
-        }
-        terminal->setNext(i);
-        prev->setNext(terminal);
-        return;
+    list<Terminal>::iterator it;
+    for(it=this->terminales.begin();(it!=this->terminales.end()) && (terminal->getTipo()>(*it).getTipo());it++);
+    this->terminales.insert(it,*terminal);
 }
 
 void Aeroporto::RegistrarAerolinea(Aerolinea* aerolinea) {
-    Aerolinea* i,*prev;
-
-    if (this->aerolineas==NULL) {
-        this->aerolineas = aerolinea;
-        return;
-    }
-    for(i=this->aerolineas,prev=NULL;(i!=NULL) && (strcmp(aerolinea->getNombre(),i->getNombre())>0);prev=i,i=i->getNext());
-    if(i==NULL){
-        prev->setNext(aerolinea);
-        return;
-    }
-    if(prev==NULL){
-        this->aerolineas=aerolinea;
-        aerolinea->setNext(i);
-        return;
-    }
-    aerolinea->setNext(i);
-    prev->setNext(aerolinea);
-    return;
+    list<Aerolinea>::iterator it;
+    for(it=this->aerolineas.begin();(it!=this->aerolineas.end()) && (aerolinea->getNombre()>(*it).getNombre());it++);
+    this->aerolineas.insert(it,*aerolinea);
 }
 
-void Aeroporto::AttachedThread() {
-    this->t1.join();
+void Aeroporto::RegistrarVuelo(Vuelo* vuelo) {
+    list<Vuelo>::iterator it;
+    for (it = this->vuelos.begin();
+         (it != this->vuelos.end()) && (vuelo->getHoraSalida()->getHora() > (*it).getHoraSalida()->getHora()); it++);
+    this->vuelos.insert(it, *vuelo);
+}
+
+void Aeroporto::AgregarAColaVuelos(Vuelo* vuelo) {
+    list<Vuelo>::iterator it;
+    for(it=this->colaVuelos.begin();(it!=this->colaVuelos.end()) && (vuelo->getPrioridad()>=(*it).getPrioridad());it++);
+    this->colaVuelos.insert(it,*vuelo);
+}
+
+void Aeroporto::ActualizarColaVuelos() {
+    list<Vuelo>::iterator it;
+    int cont=0;
+    for(it=this->colaVuelos.begin();it!=this->colaVuelos.end();it++,cont++){
+        if(cont<2)
+            if(!(*it).isDisponbilidadPista())
+                (*it).ChangeDisponibilidadPista();
+    }
+    for(it=this->colaVuelos.begin();it!=this->colaVuelos.end();it++){
+        if(!(*it).isDisponbilidadPista())
+            (*it).AddTiempoEspera();
+    }
+}
+void Aeroporto::SacarDeColaVuelos() {
+  this->colaVuelos.pop_front();
+}
+
+int Aeroporto::PistaDisponible() {
+    return this->pista;
 }
 
 int Aeroporto::VerificarEstadoVuelos() {
-    int conta=0;
-    Aerolinea *i;
-    for(i=this->aerolineas;i!=NULL;i=i->getNext()){
-        conta+=i->EstadoVuelos();
-    }
-    return conta;
+    int cont=0;
+    for(list<Aerolinea>::iterator it=this->aerolineas.begin();it!=this->aerolineas.end();it++)
+        cont+=(*it).EstadoVuelos();
+    return cont;
 }
 
 void Aeroporto::ActualizarVuelosAtendidos() {
-    int conta=0;
-    Aerolinea *i;
-    for(i=this->aerolineas;i!=NULL;i=i->getNext()){
-        conta+=i->VuelosAtendidos();
-    }
-    this->vuelosAtendidos=conta;
-}
-
-void Aeroporto::CrearVuelo() {
-
-}
-
-void Aeroporto::IniciarDespegues() {
-    thread t;
-
-    
+    int cont=0;
+    for(list<Aerolinea>::iterator it=this->aerolineas.begin();it!=this->aerolineas.end();it++)
+        cont+=(*it).VuelosAtendidos();
+    this->vuelosAtendidos=cont;
 }

@@ -6,20 +6,19 @@
 #define UNTITLED1_REGISTRO_H
 
 #include <iostream>
+#include <string.h>
 using namespace std;
 
 class Registro {
 public:
-    Registro(char* lugar, int distancia){
+    Registro(string lugar, int distancia){
         this->distancia=distancia;
         this->lugar=lugar;
-        this->next=NULL;
 
     }
 private:
-    char* lugar;
+    string lugar;
     int distancia;
-    Registro *next;
 public:
     int CalcularTiempo(double velocidad);
 };

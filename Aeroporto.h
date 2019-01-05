@@ -8,8 +8,12 @@
 #include "Terminal.h"
 #include "Aerolinea.h"
 #include "Registro.h"
+#include "Cronometro.h"
+#include <list>
 #include <iostream>
 #include <thread>
+#include <string.h>
+
 
 long int const segundo=320000000;
 
@@ -17,34 +21,37 @@ using namespace std;
 
 class Aeroporto {
 public:
-    Aeroporto(char*nombre,int numeroPistas,int hora,int day, int month, int year){
+    Aeroporto(string nombre,int numeroPistas,int hora,int day, int month, int year){
         this->nombre=nombre;
-        this->terminales=NULL;
-        this->aerolineas=NULL;
-        this->vuelos=NULL;
-        this->registros=NULL;
         this->horaActual= new Hora(hora);
         this->fecha= new Fecha(day,month,year);
-        this->t1=thread(&Aeroporto::Reloj,this);
+        this->pista=numeroPistas;
+        this->tiempOperante=0;
+        this->vuelosAtendidos=0;
     }
 private:
+    string nombre;
     Hora* horaActual;
-    char* nombre;
-    int vuelosAtendidos;
-    //mutex pista[2];
-    int TiempOperante;
-    Terminal* terminales;
-    Aerolinea* aerolineas;
-    Vuelo* vuelos;
     Fecha* fecha;
-    thread t1;
-    Registro* registros;
+    int vuelosAtendidos;
+    int tiempOperante;
+    int pista;
+    list<Terminal> terminales;
+    list<Aerolinea> aerolineas;
+    list<Vuelo> vuelos;
+    list<Vuelo> colaVuelos;
+    list<Registro> registros;
+
 public:
-    char* getNombre(){return this->nombre;}
+    string getNombre(){return this->nombre;}
     Fecha* getFecha(){return this->fecha;}
+    Hora* getHora(){return this->horaActual;}
 
     void RegistrarAerolinea(Aerolinea* aerolinea);
     void RegistrarTerminal(Terminal* Terminal);
+    void RegistrarVuelo(Vuelo* Terminal);
+    void AgregarAColaVuelos(Vuelo* Terminal);
+    void SacarDeColaVuelos();
 
     void IniciarGestion();
     void CargarArchivo();
@@ -56,14 +63,11 @@ public:
     void CierreActividad();
     void ActualizarVuelosAtendidos();
 
-    void OcuparPista(int num);
-    void DesocuparPista(int num);
 
-    void Reloj();
-    void AttachedThread();
+    int PistaDisponible();
+
     int VerificarEstadoVuelos();
-    void IniciarDespegues();
-    void CrearVuelo();
+    void ActualizarColaVuelos();
 
     void ImprimirInforme();
 };

@@ -7,51 +7,86 @@
 
 #include "Avion.h"
 #include <iostream>
+#include <string.h>
 #include "Fecha.h"
 #include "Hora.h"
 using namespace std;
 
 class Vuelo {
 public:
-    Vuelo(char* codigo,char*origen,char* destino,int horaSalida,int day, int month, int year,int prioridad,Avion* avion){
+    Vuelo(string codigo,string origen,string destino,int tiempoVuelo,int horaSalida,int day, int month, int year,int prioridad,Avion* avion){
         this->codigo=codigo;
         this->origen=origen;
         this->destino=destino;
         this->horaSalida=new Hora(horaSalida);
         this->fecha=new Fecha(day,month,year);
+        this->tiempoEspera=0;
+        this->tiempoVuelo=tiempoVuelo;
         this->prioridad=prioridad;
-        this->etapa=2;
+        this->etapa=3;
         this->avion=avion;
-        this->next=NULL;
+        this->horaCarga=new Hora(this->horaSalida->getHora());
+        this->horaCarga->Sum(this->getAvion()->getTiempoCargaDescarga());
+        this->horaDespegue=new Hora(this->horaCarga->getHora());
+        this->horaDespegue->Sum(this->getAvion()->getTiempoDespegueAterrizaje());
+        this->horaVuelo=new Hora(this->horaDespegue->getHora());
+        this->horaVuelo->Sum(this->tiempoVuelo);
+        this->horaAterrizaje=new Hora(this->horaVuelo->getHora());
+        this->horaAterrizaje->Sum(this->getAvion()->getTiempoDespegueAterrizaje());
+        this->horaDescarga=new Hora(this->horaAterrizaje->getHora());
+        this->horaDescarga->Sum(this->getAvion()->getTiempoCargaDescarga());
+        this->horaFinalizar=new Hora(this->horaDescarga->getHora());
+        this->horaFinalizar->Sum(this->getAvion()->getTiempoReabastecimiento());
+        this->disponbilidadPista=false;
     }
+
 private:
-    char* codigo;
-    char* origen;
-    char* destino;
+    string codigo;
+    string origen;
+    string destino;
     Fecha* fecha;
     Hora* horaSalida;
+    Hora* horaCarga;
+    Hora* horaDespegue;
+    Hora* horaVuelo;
+    Hora* horaAterrizaje;
+    Hora* horaDescarga;
+    Hora* horaFinalizar;
     int prioridad;
-    float tiempoVuelo;
-    float tiempoAtencion;
-    float tiempoEspera;
+    bool disponbilidadPista;
+    int tiempoVuelo;
+    int tiempoAtencion;
+    int tiempoEspera;
     int etapa; //2 para en espera, 1 para vuelo, 0 para terminado
     Avion* avion;
-    Vuelo* next;
 public:
-    Vuelo* getNext(){return this->next;}
-    char* getDestino(){return this->destino;}
-    char *getOrigen(){return origen;};
+    string getDestino(){return this->destino;}
+    string getOrigen(){return origen;};
     Hora *getHoraSalida();
+    Hora *getHoraCarga();
+    Hora *getHoraDespegue();
+    Hora *getHoraVuelo();
+    Hora *getHoraAterrizaje();
+    Hora *getHoraDescarga();
+    Hora *getHoraFinalizar();
+    int getPrioridad();
+    Avion *getAvion();
     int getEtapa();
+    int getTiempoVuelo();
+    void setTiempoEspera(int tiempo){this->tiempoEspera=tiempo;}
+    int getTiempoEspera(){return this->tiempoEspera;}
+    bool isDisponbilidadPista();
 
-    void setNext(Vuelo* vuelo){this->next=vuelo;}
+    void ChangeDisponibilidadPista();
     void NextEtapa();
-
-    void RealizarCarga();
-    void RealizarDespegue();
-    void RealizarVuelo();
-    void RealizarAterrizaje();
-    void RealizarDescarga();
+    void InicioVuelo();
+    void CargaRealizada();
+    void DespegueRealizado();
+    void VueloRealizado();
+    void AterrizajeRealizado();
+    void DescargaRealizada();
+    void FinVuelo();
+    void AddTiempoEspera();
 
     void ImprimirDatosVuelo();
 };

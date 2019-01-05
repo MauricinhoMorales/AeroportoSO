@@ -27,3 +27,10 @@ int Hora::AddTime() {
     }
     return 0;
 }
+
+int Hora::Sum(int tiempo) {
+    for(int i=0;i<tiempo;i++)
+       this->AddTime();
+     return 0;
+}
+

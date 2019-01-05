@@ -11,13 +11,16 @@ public:
     Hora(int hora){
         this->hora=hora;
     }
+    Hora(){
+        this->hora=0;
+    }
 private:
     int hora;
 public:
     int getHora(){return hora;}
 
     int AddTime();
-
+    int Sum(int tiempo);
     void ImprimirHora();
 };
 

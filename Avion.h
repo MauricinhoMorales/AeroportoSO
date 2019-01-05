@@ -6,31 +6,37 @@
 #define UNTITLED1_AVION_H
 #include <iostream>
 #include<math.h>
+#include <string.h>
 using namespace std;
 
 class Avion {
 public:
-    Avion(char* codigo,float velocidad,int capacidad,int tipo){
+    Avion(string codigo,float velocidad,int capacidad,int tipo){
       this->codigo=codigo;
-      this->tiempoCarga=this->CalcularTiempoCargaDescarga();
-      this->tiempoDescarga=this->CalcularTiempoCargaDescarga();
-      this->tiempoRestablecimiento=this->CalcularTiempoReabastecimiento();
-      this->velocidadPromedio=velocidad;
       this->capacidad=capacidad;
+      this->tiempoCargaDescarga=this->CalcularTiempoCargaDescarga();
+      this->tiempoReabastecimiento=this->CalcularTiempoReabastecimiento();
+      this->tiempoDespegueAterrizaje=this->CalcularTiempoDespegueAterrizaje();
+      this->velocidadPromedio=velocidad;
       this->tipo=tipo;
     }
 private:
-    char* codigo;
-    int tiempoRestablecimiento;
-    int tiempoCarga;
-    int tiempoDescarga;
+    string codigo;
+    int tiempoReabastecimiento;
+    int tiempoCargaDescarga;
+    int tiempoDespegueAterrizaje;
     float velocidadPromedio;
     int capacidad;
     int tipo;//0 para avion comercial y 1 para avion de carga
 
 public:
+    int getTiempoCargaDescarga();
+    int getTiempoReabastecimiento();
+    int getTiempoDespegueAterrizaje();
+
     int CalcularTiempoCargaDescarga();
     int CalcularTiempoReabastecimiento();
+    int CalcularTiempoDespegueAterrizaje();
 
     void ImprimirDatosAvion();
 };

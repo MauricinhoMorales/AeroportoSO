@@ -8,26 +8,21 @@
 #include "Vuelo.h"
 #include <iostream>
 #include <string.h>
+#include <list>
 using namespace std;
 
 class Aerolinea {
 public:
-    Aerolinea(char* nombre){
+    Aerolinea(string nombre){
          this->nombre=nombre;
-         this->vuelos=NULL;
-         this->next=NULL;
     }
 private:
-    char* nombre;
-    Vuelo* vuelos;
-    Aerolinea* next;
+    string nombre;
+    list<Vuelo> vuelos;
 
 public:
-    Aerolinea* getNext(){return this->next;}
-    char * getNombre(){return this->nombre;}
-    Vuelo* getVuelos(){return this->vuelos;}
-
-    void setNext (Aerolinea* aerolinea){this->next=aerolinea;}
+    string getNombre(){return this->nombre;}
+    list<Vuelo> getVuelos(){return this->vuelos;}
 
     void RegistrarVuelo(Vuelo* vuelo);
     int EstadoVuelos();
