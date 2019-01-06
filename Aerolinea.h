@@ -18,11 +18,11 @@ public:
     }
 private:
     string nombre;
-    list<Vuelo> vuelos;
+    list<Vuelo*> vuelos;
 
 public:
     string getNombre(){return this->nombre;}
-    list<Vuelo> getVuelos(){return this->vuelos;}
+    list<Vuelo*> getVuelos(){return this->vuelos;}
 
     void RegistrarVuelo(Vuelo* vuelo);
     int EstadoVuelos();

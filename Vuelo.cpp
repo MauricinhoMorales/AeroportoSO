@@ -5,45 +5,61 @@
 #include "Vuelo.h"
 
 void Vuelo::ImprimirDatosVuelo() {
-    cout << "Codigo: "<< this->codigo<<"\n";
-    cout << "Origen: " << this->origen << " - Destino: " << this->destino <<"\n";
-    this->horaSalida->ImprimirHora();
-    this->fecha->ImprimirFecha();
-    cout << "Hora Carga: ";
-    this->horaCarga->ImprimirHora();
-    cout <<"\n";
-    cout << "Hora Despegue: ";
-    this->horaDespegue->ImprimirHora();
-    cout <<"\n";
-    cout << "Hora Vuelo Finalizado: ";
-    this->horaVuelo->ImprimirHora();
-    cout <<"\n";
-    cout << "Hora Aterrizaje: ";
-    this->horaAterrizaje->ImprimirHora();
-    cout <<"\n";
-    cout << "Hora Descarga: ";
-    this->horaDescarga->ImprimirHora();
-    cout <<"\n";
-    cout << "Hora Finalizar: ";
-    this->horaFinalizar->ImprimirHora();
-    cout <<"\n\n";
-    cout << "Disponibiliad de pista: " <<this->disponbilidadPista << "\n";
-    if(this->etapa==2)
+    if(this->etapa==7)
         cout << "VUELO EN ESPERA\n";
     else
-        if (this->etapa==1)
-            cout << "VUELO EN PROCESO\n";
+        if (this->etapa==6)
+            cout << "VUELO CARGANDO\n";
         else
-            if (this->etapa==0){
-                cout << "VUELO FINALIZADO\n";
-                cout << "Tiempo de Vuelo: " << this->tiempoAtencion << "\n";
-                cout << "Tiempo de Espera: " << this->tiempoEspera << "\n";
-            }
-    cout << "Avion:\n";
+            if (this->etapa==5)
+                cout << "VUELO DESPEGANDO\n";
+            else
+                if (this->etapa==4)
+                    cout << "VUELO EN PROGRESO \n";
+                else
+                    if (this->etapa==3)
+                        cout << "VUELO ATERRIZANDO\n";
+                    else
+                        if (this->etapa==2)
+                            cout << "VUELO DESCARGANDO\n";
+                        else
+                            if (this->etapa==1)
+                                cout << "VUELO REABASTECIENDOCE\n";
+                            else
+                                if (this->etapa==0){
+                                    cout << "VUELO FINALIZADO\n";
+                                    cout << "Tiempo de Vuelo: " << this->tiempoVuelo << " minutos\n";
+                                    cout << "Tiempo de Espera: " << this->tiempoEspera << " minutos\n";
+    }
+    cout << " Codigo: "<< this->codigo<<"\n";
+    cout << " Origen: " << this->origen << " - Destino: " << this->destino <<"\n";
+    this->horaSalida->ImprimirHora();
+    this->fecha->ImprimirFecha();
+    cout << " Carga: ";
+    this->horaCarga->ImprimirHora();
+    cout <<" ";
+    cout << "Despegue: ";
+    this->horaDespegue->ImprimirHora();
+    cout <<" ";
+    cout << "Vuelo: ";
+    this->horaVuelo->ImprimirHora();
+    cout <<"\n";
+    cout << " Aterrizaje: ";
+    this->horaAterrizaje->ImprimirHora();
+    cout <<" ";
+    cout << "Descarga: ";
+    this->horaDescarga->ImprimirHora();
+    cout <<" ";
+    cout << "Finalizado: ";
+    this->horaFinalizar->ImprimirHora();
+    cout <<"\n";
+    cout << " Disponibiliad de pista: " <<this->disponbilidadPista << "\n";
+    cout << " Avion:\n";
     (this->avion)->ImprimirDatosAvion();
 }
 void Vuelo::InicioVuelo(){
     cout<< "El Vuelo " << this->codigo << " esta listo para Cargar desde el Aeropuerto de "<< this->origen << "\n";
+    this->NextEtapa();
 }
 
 void Vuelo::AterrizajeRealizado() {
@@ -81,7 +97,7 @@ int Vuelo::getEtapa() {
 }
 
 void Vuelo::NextEtapa() {
-    //this->etapa--;
+    this->etapa--;
 }
 
 Hora *Vuelo::getHoraSalida(){
@@ -141,6 +157,10 @@ void Vuelo::AddTiempoEspera() {
     this->horaAterrizaje->AddTime();
     this->horaDescarga->AddTime();
     this->horaFinalizar->AddTime();
+}
+
+string Vuelo::getCodigo(){
+    return codigo;
 }
 
 

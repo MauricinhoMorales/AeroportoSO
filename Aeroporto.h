@@ -8,7 +8,6 @@
 #include "Terminal.h"
 #include "Aerolinea.h"
 #include "Registro.h"
-#include "Cronometro.h"
 #include <list>
 #include <iostream>
 #include <thread>
@@ -36,11 +35,11 @@ private:
     int vuelosAtendidos;
     int tiempOperante;
     int pista;
-    list<Terminal> terminales;
-    list<Aerolinea> aerolineas;
-    list<Vuelo> vuelos;
-    list<Vuelo> colaVuelos;
-    list<Registro> registros;
+    list<Terminal*> terminales;
+    list<Aerolinea*> aerolineas;
+    list<Vuelo*> vuelos;
+    list<Vuelo*> colaVuelos;
+    list<Registro*> registros;
 
 public:
     string getNombre(){return this->nombre;}
@@ -49,8 +48,8 @@ public:
 
     void RegistrarAerolinea(Aerolinea* aerolinea);
     void RegistrarTerminal(Terminal* Terminal);
-    void RegistrarVuelo(Vuelo* Terminal);
-    void AgregarAColaVuelos(Vuelo* Terminal);
+    void RegistrarVueloGeneral(Vuelo* vuelo);
+    void AgregarAColaVuelos(Vuelo* vuelo);
     void SacarDeColaVuelos();
 
     void IniciarGestion();
@@ -62,13 +61,14 @@ public:
     void RetomarActividad();
     void CierreActividad();
     void ActualizarVuelosAtendidos();
-
+    void ActualizarTiempoOperacion();
+    void ActualizarAerolineas();
 
     int PistaDisponible();
 
     int VerificarEstadoVuelos();
     void ActualizarColaVuelos();
-
+    void AddTimeEspera();
     void ImprimirInforme();
 };
 

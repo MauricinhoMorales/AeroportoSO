@@ -23,7 +23,7 @@ public:
         this->tiempoEspera=0;
         this->tiempoVuelo=tiempoVuelo;
         this->prioridad=prioridad;
-        this->etapa=3;
+        this->etapa=7;
         this->avion=avion;
         this->horaCarga=new Hora(this->horaSalida->getHora());
         this->horaCarga->Sum(this->getAvion()->getTiempoCargaDescarga());
@@ -55,9 +55,8 @@ private:
     int prioridad;
     bool disponbilidadPista;
     int tiempoVuelo;
-    int tiempoAtencion;
     int tiempoEspera;
-    int etapa; //2 para en espera, 1 para vuelo, 0 para terminado
+    int etapa;
     Avion* avion;
 public:
     string getDestino(){return this->destino;}
@@ -76,6 +75,7 @@ public:
     void setTiempoEspera(int tiempo){this->tiempoEspera=tiempo;}
     int getTiempoEspera(){return this->tiempoEspera;}
     bool isDisponbilidadPista();
+    string getCodigo();
 
     void ChangeDisponibilidadPista();
     void NextEtapa();

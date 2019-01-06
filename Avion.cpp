@@ -6,17 +6,17 @@
 
 void Avion::ImprimirDatosAvion() {
     if(this->tipo==0) {
-        cout << " Avion Comercial\n";
-        cout << " Codigo: " << this->codigo << "\n";
-        cout << " Capacidad: " << this->capacidad << " pasajeros\n\n";
+        cout << "   Avion Comercial\n";
+        cout << "   Codigo: " << this->codigo << "\n";
+        cout << "   Capacidad: " << this->capacidad << " pasajeros\n\n";
     }else{
-        cout << " Avion de Carga\n";
-        cout << " Codigo: " << this->codigo << "\n";
-        cout << " Capacidad: " << this->capacidad << " toneladas\n\n";
+        cout << "   Avion de Carga\n";
+        cout << "   Codigo: " << this->codigo << "\n";
+        cout << "   Capacidad: " << this->capacidad << " toneladas\n\n";
     }
-    cout << " Tiempo DespegueCargaDescarga: " << this->getTiempoCargaDescarga() << "\n";
-    cout << " Tiempo DespegueAterrizaje: " << this->getTiempoDespegueAterrizaje() << "\n";
-    cout << " Tiempo Reabastecimiento: " << this->getTiempoReabastecimiento() << "\n\n";
+    cout << "   Tiempo DespegueCargaDescarga: " << this->getTiempoCargaDescarga() << " minutos\n";
+    cout << "   Tiempo DespegueAterrizaje: " << this->getTiempoDespegueAterrizaje() << " minutos\n";
+    cout << "   Tiempo Reabastecimiento: " << this->getTiempoReabastecimiento() << " minutos\n\n";
 }
 
 int Avion::CalcularTiempoCargaDescarga() {
