@@ -21,6 +21,7 @@ private:
     int numPlataformas;
     int disponibles;
     int tipo;// 0 para terminal pasajeros y 1 para terminal de carga
+
 public:
     int getTipo(){return this->tipo;}
 

@@ -33,6 +33,7 @@ public:
     int getTiempoCargaDescarga();
     int getTiempoReabastecimiento();
     int getTiempoDespegueAterrizaje();
+    int getTipo();
 
     int CalcularTiempoCargaDescarga();
     int CalcularTiempoReabastecimiento();

@@ -42,16 +42,11 @@ private:
     list<Vuelo*> colaVuelos;
 
 public:
-    string getNombre(){return this->nombre;}
-    Fecha* getFecha(){return this->fecha;}
-    Hora* getHora(){return this->horaActual;}
-    void setFechaHora(int hora,int day, int month, int year);
-
     void RegistrarAerolinea(Aerolinea* aerolinea);
     void RegistrarTerminal(Terminal* Terminal);
     void RegistrarVueloGeneral(Vuelo* vuelo);
     void AgregarAColaVuelos(Vuelo* vuelo);
-    void SacarDeColaVuelos();
+    void SacarDeColaVuelos(Vuelo * vuelo);
 
     void IniciarGestion();
     void CargarArchivo();
@@ -61,14 +56,12 @@ public:
     void RetomarActividad();
     void InterrumpirActividad();
     void CierreActividad();
-    void ResetearAeropuerto();
 
     void ActualizarVuelosAtendidos();
     void ActualizarTiempoOperacion();
 
     int VuelosEnEspera();
     int VuelosEnUso();
-    void DeterminarTiemposVuelo();
 
     int VerificarEstadoVuelos();
     void ActualizarColaVuelos();

@@ -28,22 +28,29 @@ void Aeroporto::GenerarInforme(){ //ESCRIBIR UN ARCHIVO
 
 void Aeroporto::CargarArchivo() {    //CARGAR ESTRUCTURAS LEER DEL ARCHIVO
     Terminal *terminal1 = new Terminal("CR20", 10, 10, 0);
-    Terminal *terminal2 = new Terminal("TE12", 5, 4, 0);
-    Terminal *terminal3 = new Terminal("QW01", 7, 5, 1);
+    Terminal *terminal3 = new Terminal("QW01", 7, 1, 1);
     Aerolinea *aerolinea1 = new Aerolinea("AmericanAirlines");
     Aerolinea *aerolinea2 = new Aerolinea("Rutaca");
-    Vuelo *vuelo1 = new Vuelo("N4", "Brazil", "Chile",1,10,    15 ,4, 1, 2019, 1, new Avion("67", 60, 16, 0));
-    Vuelo *vuelo2 = new Vuelo("N2", "Brazil", "Colombia",1,10, 15, 4, 1, 2019, 1, new Avion("67", 60, 16, 0));
-    Vuelo *vuelo3 = new Vuelo("N1", "Brazil", "USA",1,10,      15, 4, 1, 2019, 1, new Avion("67", 60, 16, 0));
+    Vuelo *vuelo1 = new Vuelo("SALIDA 1", "Brazil", "Chile",1,10,    10 ,4, 1, 2019, 1, new Avion("67", 60, 150, 1));
+    Vuelo *vuelo2 = new Vuelo("SALIDA 2", "Brazil", "Colombia",1,10, 10, 4, 1, 2019, 1, new Avion("67", 60, 150, 1));
+    Vuelo *vuelo3 = new Vuelo("SALIDA 3", "Brazil", "USA",1,10,      10, 4, 1, 2019, 1, new Avion("67", 60, 150, 1));
+    Vuelo *vuelo4 = new Vuelo("LLEGADA 1", "Brazil",  "Chile",1,10,    10 ,4, 1, 2019, 1, new Avion("67", 60, 150, 1));
+    Vuelo *vuelo5 = new Vuelo("LLEGADA 2", "Brazil", "Uruguay",1,10, 10, 4, 1, 2019, 1, new Avion("67", 60, 150, 1));
+    Vuelo *vuelo6 = new Vuelo("LLEGADA 3", "Brazil", "Colombia",1,10,   10, 4, 1, 2019, 1, new Avion("67", 60, 150, 1));
     this->RegistrarTerminal(terminal1);
     this->RegistrarTerminal(terminal3);
-    this->RegistrarTerminal(terminal2);
     aerolinea1->RegistrarVuelo(vuelo1);
     aerolinea1->RegistrarVuelo(vuelo2);
     aerolinea2->RegistrarVuelo(vuelo3);
+    aerolinea1->RegistrarVuelo(vuelo4);
+    aerolinea1->RegistrarVuelo(vuelo5);
+    aerolinea2->RegistrarVuelo(vuelo6);
     this->RegistrarVueloGeneral(vuelo1);
     this->RegistrarVueloGeneral(vuelo2);
     this->RegistrarVueloGeneral(vuelo3);
+    this->RegistrarVueloGeneral(vuelo4);
+    this->RegistrarVueloGeneral(vuelo5);
+    this->RegistrarVueloGeneral(vuelo6);
     this->RegistrarAerolinea(aerolinea2);
     this->RegistrarAerolinea(aerolinea1);
 }
@@ -73,7 +80,7 @@ void Aeroporto::IniciarGestion() {    //REALIZAR LA GESTION
                 } else if ((*it)->getHoraDespegue()->getHora() == this->horaActual->getHora()) {
                     (*it)->DespegueRealizado();
                     if (tipo == 1) {
-                        this->SacarDeColaVuelos();
+                        this->SacarDeColaVuelos(*it);
                     }
                 } else if ((*it)->getHoraVuelo()->getHora() == this->horaActual->getHora()) {
                     (*it)->VueloRealizado();
@@ -83,7 +90,7 @@ void Aeroporto::IniciarGestion() {    //REALIZAR LA GESTION
                 } else if ((*it)->getHoraAterrizaje()->getHora() == this->horaActual->getHora()) {
                     (*it)->AterrizajeRealizado();
                     if (tipo == 0) {
-                        this->SacarDeColaVuelos();
+                        this->SacarDeColaVuelos(*it);
                     }
                 } else if ((*it)->getHoraDescarga()->getHora() == this->horaActual->getHora())
                     (*it)->DescargaRealizada();
@@ -196,10 +203,24 @@ void Aeroporto::AddTimeEspera(){
     }
 }
 
-void Aeroporto::SacarDeColaVuelos() {
-    Vuelo* vuelo=this->colaVuelos.front();
+void Aeroporto::SacarDeColaVuelos(Vuelo *vuelo) {
+    int tipo=vuelo->getAvion()->getTipo();
+    int type=vuelo->getTipo();
     vuelo->ChangeDisponibilidadPista();
-    this->colaVuelos.pop_front();
+    this->colaVuelos.remove(vuelo);
+
+    list<Terminal*>::iterator it;
+    for(it=this->terminales.begin();it!=this->terminales.end();it++){
+        if((*it)->getTipo()==tipo)
+            if(type==1) {
+                (*it)->DesocuparPlataforma();
+                break;
+            } else {
+                (*it)->OcuparPlataforma();
+                break;
+            }
+    }
+    return;
 }
 
 int Aeroporto::VerificarEstadoVuelos() {

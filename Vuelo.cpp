@@ -176,11 +176,11 @@ void Vuelo::AddTiempoEspera() {
     this->horaFinalizar->AddTime();
 }
 
-string Vuelo::getCodigo(){
-    return codigo;
-}
-
 Fecha * Vuelo::getFecha() {
     return this->fecha;
+}
+
+int Vuelo::getTipo() {
+    return this->tipo;
 }
 

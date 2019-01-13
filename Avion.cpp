@@ -28,7 +28,7 @@ int Avion::CalcularTiempoReabastecimiento() {
 }
 
 int Avion::CalcularTiempoDespegueAterrizaje(){
-    return ((int)(sqrt(sqrt(this->capacidad))));
+    return ((int)(sqrt(sqrt(this->capacidad)))*2);
 }
 
 int Avion::getTiempoCargaDescarga(){
@@ -40,5 +40,9 @@ int Avion::getTiempoReabastecimiento(){
 
 int Avion::getTiempoDespegueAterrizaje(){
     return this->tiempoDespegueAterrizaje;
+}
+
+int Avion::getTipo() {
+    return this->tipo;
 }
 

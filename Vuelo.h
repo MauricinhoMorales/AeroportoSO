@@ -74,8 +74,8 @@ public:
     Avion *getAvion();
     int getEtapa();
     bool isDisponbilidadPista();
-    string getCodigo();
     Fecha * getFecha();
+    int getTipo();
 
     void ChangeDisponibilidadPista();
     void NextEtapa();
