@@ -14,6 +14,7 @@ void Aerolinea::ImprimirVuelos() {
 
 void Aerolinea::RegistrarVuelo(Vuelo* vuelo) {
     list<Vuelo*>::iterator it;
+    for (it = this->vuelos.begin();(it != this->vuelos.end()) && (vuelo->getFecha()->CompararFecha((*it)->getFecha())); it++);
     for(it=this->vuelos.begin();(it!=this->vuelos.end()) && (vuelo->getHoraSalida()->getHora()>(*it)->getHoraSalida()->getHora());it++);
     this->vuelos.insert(it,vuelo);
 }

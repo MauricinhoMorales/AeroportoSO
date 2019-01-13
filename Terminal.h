@@ -24,8 +24,8 @@ private:
 public:
     int getTipo(){return this->tipo;}
 
-    void OcuparPlataforma();
-    void DesocuparPlataforma();
+    int OcuparPlataforma();
+    int DesocuparPlataforma();
 
     void ImprimirDatosTerminal();
 };

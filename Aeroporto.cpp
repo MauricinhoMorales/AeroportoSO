@@ -9,87 +9,100 @@ void Aeroporto::ComenzarActividad(){  // como se ordena el beta
     this->IniciarGestion();
 }
 
+void Aeroporto::RetomarActividad() {
+    this->IniciarGestion();
+}
+
 void Aeroporto::InterrumpirActividad() {   //OPCION DE MENU PARA PARAR ACTIVIDAD
     this->GenerarInforme();
     this->ImprimirInforme();
-}
-
-void Aeroporto::RetomarActividad() { // OPCION DE MENU PARA RETOMAR ACTIVIDAD
-    this->ComenzarActividad();
 }
 
 void Aeroporto::CierreActividad() {    // OPCION DEL MENU CERRAR
     exit(1);
 }
 
-void Aeroporto::IniciarGestion() {    //REALIZAR LA GESTION (--------------)
-    while(this->VerificarEstadoVuelos()){
+void Aeroporto::GenerarInforme(){ //ESCRIBIR UN ARCHIVO
+
+}
+
+void Aeroporto::CargarArchivo() {    //CARGAR ESTRUCTURAS LEER DEL ARCHIVO
+    Terminal *terminal1 = new Terminal("CR20", 10, 10, 0);
+    Terminal *terminal2 = new Terminal("TE12", 5, 4, 0);
+    Terminal *terminal3 = new Terminal("QW01", 7, 5, 1);
+    Aerolinea *aerolinea1 = new Aerolinea("AmericanAirlines");
+    Aerolinea *aerolinea2 = new Aerolinea("Rutaca");
+    Vuelo *vuelo1 = new Vuelo("N4", "Brazil", "Chile",1,10,    15 ,4, 1, 2019, 1, new Avion("67", 60, 16, 0));
+    Vuelo *vuelo2 = new Vuelo("N2", "Brazil", "Colombia",1,10, 15, 4, 1, 2019, 1, new Avion("67", 60, 16, 0));
+    Vuelo *vuelo3 = new Vuelo("N1", "Brazil", "USA",1,10,      15, 4, 1, 2019, 1, new Avion("67", 60, 16, 0));
+    this->RegistrarTerminal(terminal1);
+    this->RegistrarTerminal(terminal3);
+    this->RegistrarTerminal(terminal2);
+    aerolinea1->RegistrarVuelo(vuelo1);
+    aerolinea1->RegistrarVuelo(vuelo2);
+    aerolinea2->RegistrarVuelo(vuelo3);
+    this->RegistrarVueloGeneral(vuelo1);
+    this->RegistrarVueloGeneral(vuelo2);
+    this->RegistrarVueloGeneral(vuelo3);
+    this->RegistrarAerolinea(aerolinea2);
+    this->RegistrarAerolinea(aerolinea1);
+}
+
+void Aeroporto::IniciarGestion() {    //REALIZAR LA GESTION
+    while(this->VerificarEstadoVuelos()) {
+        if (GetKeyState(VK_SHIFT) & 0x8000) {
+            break;
+        }
         for (long int i = 0; i < segundo; i++);
-        cout << "################################---HORA Y FECHA ACTUALES---#########################\n";
+        cout << "----------------------------------HORA Y FECHA -------------------------------------\n";
         if (this->horaActual->AddTime())
             this->fecha->AddDay();
         this->horaActual->ImprimirHora();
         this->fecha->ImprimirFecha();
-        cout << "-----------------------------------EVENTOS------------------------------------------\n";
-        for(list<Vuelo*>::iterator it=this->vuelos.begin();it!=this->vuelos.end();it++){
-            int tipo = (this->nombre==(*it)->getOrigen());
-            if((*it)->getHoraSalida()->getHora()==this->horaActual->getHora())
-                (*it)->InicioVuelo();
-            else
-                if((*it)->getHoraCarga()->getHora()==this->horaActual->getHora()) {
+        cout << "------------EVENTOS-------------\n";
+        for (list<Vuelo *>::iterator it = this->vuelos.begin(); it != this->vuelos.end(); it++) {
+            int tipo = (this->nombre == (*it)->getOrigen());
+            if ((*it)->getFecha()->isIgual(this->fecha))
+                if ((*it)->getHoraSalida()->getHora() == this->horaActual->getHora())
+                    (*it)->InicioVuelo();
+                else if ((*it)->getHoraCarga()->getHora() == this->horaActual->getHora()) {
                     (*it)->CargaRealizada();
-                    if(tipo==1) {
+                    if (tipo == 1) {
                         this->AgregarAColaVuelos(*it);
                     }
-                }
-                else
-                    if((*it)->getHoraDespegue()->getHora()==this->horaActual->getHora()) {
-                        (*it)->DespegueRealizado();
-                        if(tipo==1) {
-                            this->SacarDeColaVuelos();
-                        }
+                } else if ((*it)->getHoraDespegue()->getHora() == this->horaActual->getHora()) {
+                    (*it)->DespegueRealizado();
+                    if (tipo == 1) {
+                        this->SacarDeColaVuelos();
                     }
-                    else
-                        if((*it)->getHoraVuelo()->getHora()==this->horaActual->getHora()) {
-                            (*it)->VueloRealizado();
-                            if (tipo==0) {
-                                this->AgregarAColaVuelos(*it);
-                            }
-                        }
-                        else
-                            if((*it)->getHoraAterrizaje()->getHora()==this->horaActual->getHora()) {
-                                (*it)->AterrizajeRealizado();
-                                if(tipo==0) {
-                                    this->SacarDeColaVuelos();
-                                }
-                            }
-                            else
-                                if((*it)->getHoraDescarga()->getHora()==this->horaActual->getHora())
-                                    (*it)->DescargaRealizada();
-                                else
-                                    if((*it)->getHoraFinalizar()->getHora()==this->horaActual->getHora())
-                                        (*it)->FinVuelo();
+                } else if ((*it)->getHoraVuelo()->getHora() == this->horaActual->getHora()) {
+                    (*it)->VueloRealizado();
+                    if (tipo == 0) {
+                        this->AgregarAColaVuelos(*it);
+                    }
+                } else if ((*it)->getHoraAterrizaje()->getHora() == this->horaActual->getHora()) {
+                    (*it)->AterrizajeRealizado();
+                    if (tipo == 0) {
+                        this->SacarDeColaVuelos();
+                    }
+                } else if ((*it)->getHoraDescarga()->getHora() == this->horaActual->getHora())
+                    (*it)->DescargaRealizada();
+                else if ((*it)->getHoraFinalizar()->getHora() == this->horaActual->getHora())
+                    (*it)->FinVuelo();
         }
         this->ActualizarColaVuelos();
         this->AddTimeEspera();
         this->ActualizarVuelosAtendidos();
         this->ActualizarTiempoOperacion();
-        this->ImprimirInforme();
     }
 }
 
-void Aeroporto::CargarArchivo() {    //CARGAR ESTRUCTURAS LEER DEL ARCHIVO
-
-}
-
-void Aeroporto::GenerarInforme() {      //ESCRIBIR EN EL ARCHIVO
-
-}
-
 void Aeroporto::ImprimirInforme() {
-    cout << "-----------------------------------AEROPUERTO---------------------------------------\n";
-    cout << "NOMBRE: "<< this->nombre << "\n";
+    cout << "-----------------------------------INFORME-----------------------------------------\n";
+    cout << "NOMBRE DEL AEROPUERTO: "<< this->nombre << "\n";
     cout << "VUELOS ATENDIDOS: "<< this->vuelosAtendidos << " vuelos\n";
+    cout << "VUELOS EN USO DE PISTA: "<< this->VuelosEnUso() << " vuelos \n";
+    cout << "VUELOS EN ESPERA POR PISTA: "<< this->VuelosEnEspera() << " vuelos \n";
     cout << "TIEMPO OPERACION: "<< this->tiempOperante << " minutos \n";
     cout << "-----------------------------------AEROLINEAS---------------------------------------\n";
     for(list<Aerolinea*>::iterator it=this->aerolineas.begin();it!=this->aerolineas.end();it++)
@@ -100,11 +113,29 @@ void Aeroporto::ImprimirInforme() {
     cout << "-----------------------------------VUELOS-------------------------------------------\n";
     for(list<Vuelo*>::iterator it=this->vuelos.begin();it!=this->vuelos.end();it++)
         (*it)->ImprimirDatosVuelo();
-    cout << "-----------------------------------COLAVUELOS---------------------------------------\n";
+    cout << "-----------------------------VUELOS EN ESPERA POR PISTA-----------------------------\n";
     for(list<Vuelo*>::iterator it=this->colaVuelos.begin();it!=this->colaVuelos.end();it++)
-        (*it)->ImprimirDatosVuelo();
-    cout << "\n";
+        if (!(*it)->isDisponbilidadPista())
+            (*it)->ImprimirDatosVuelo();
+    cout << "------------------------------------------------------------------------------------\n";
+}
 
+int Aeroporto::VuelosEnEspera(){
+    int cont=0;
+    list<Vuelo*>::iterator it;
+    for(it=this->colaVuelos.begin();it!=this->colaVuelos.end();it++)
+        if (!(*it)->isDisponbilidadPista())
+            cont++;
+    return cont;
+}
+
+int Aeroporto::VuelosEnUso(){
+    int cont=0;
+    list<Vuelo*>::iterator it;
+    for(it=this->colaVuelos.begin();it!=this->colaVuelos.end();it++)
+        if ((*it)->isDisponbilidadPista())
+            cont++;
+    return cont;
 }
 
 void Aeroporto::RegistrarTerminal(Terminal* terminal) {
@@ -121,8 +152,8 @@ void Aeroporto::RegistrarAerolinea(Aerolinea* aerolinea) {
 
 void Aeroporto::RegistrarVueloGeneral(Vuelo* vuelo) {
     list<Vuelo*>::iterator it;
-    for (it = this->vuelos.begin();
-         (it != this->vuelos.end()) && (vuelo->getHoraSalida()->getHora() > (*it)->getHoraSalida()->getHora()); it++);
+    for (it = this->vuelos.begin();(it != this->vuelos.end()) && (vuelo->getFecha()->CompararFecha((*it)->getFecha())); it++);
+    for (;(it != this->vuelos.end()) && (vuelo->getHoraSalida()->getHora() > (*it)->getHoraSalida()->getHora()); it++);
     this->vuelos.insert(it, vuelo);
 }
 
@@ -146,6 +177,16 @@ void Aeroporto::ActualizarColaVuelos() {
     if(!(*it)->isDisponbilidadPista())
                 (*it)->ChangeDisponibilidadPista();
     }
+    cout << "----------USO DE PISTA----------\n";
+    for(it=this->colaVuelos.begin();it!=this->colaVuelos.end() && (*it)->isDisponbilidadPista();it++){
+        int tipo = (this->nombre==(*it)->getOrigen());
+        if(tipo==1)
+            (*it)->Despegando();
+        if(tipo==0)
+            (*it)->Aterrizando();
+    }
+    cout << "--------------------------------\n\n";
+
 }
 void Aeroporto::AddTimeEspera(){
     list<Vuelo*>::iterator it;
@@ -154,6 +195,7 @@ void Aeroporto::AddTimeEspera(){
             (*it)->AddTiempoEspera();
     }
 }
+
 void Aeroporto::SacarDeColaVuelos() {
     Vuelo* vuelo=this->colaVuelos.front();
     vuelo->ChangeDisponibilidadPista();

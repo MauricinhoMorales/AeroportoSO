@@ -24,6 +24,35 @@ void Fecha::AddYear() {
     this->year++;
 }
 
+int Fecha::CompararFecha(Fecha * fecha) {
+    if(this->year>fecha->getYear())
+        return 1;
+    else
+        if(this->year<fecha->getYear())
+            return 0;
+        else
+            if(this->month>fecha->getMonth())
+                return 1;
+            else
+                if(this->month<fecha->getMonth())
+                    return 0;
+                else
+                    if(this->day>fecha->getDay())
+                        return 1;
+                    else
+                        if(this->day<fecha->getDay())
+                            return 0;
+                        else
+                            return 0;
+}
+
+int Fecha::isIgual(Fecha *fecha) {
+    if(this->year==fecha->getYear() && this->month==fecha->getMonth() && this->day==fecha->getDay())
+        return 1;
+    else
+        return 0;
+}
+
 void Fecha::ImprimirFecha() {
     cout << "Fecha: ";
     if (this->day<10)

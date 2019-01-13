@@ -7,11 +7,12 @@
 
 #include "Terminal.h"
 #include "Aerolinea.h"
-#include "Registro.h"
 #include <list>
 #include <iostream>
 #include <thread>
 #include <string.h>
+#include <windows.h>
+#include <conio.h>
 
 
 long int const segundo=320000000;
@@ -39,12 +40,12 @@ private:
     list<Aerolinea*> aerolineas;
     list<Vuelo*> vuelos;
     list<Vuelo*> colaVuelos;
-    list<Registro*> registros;
 
 public:
     string getNombre(){return this->nombre;}
     Fecha* getFecha(){return this->fecha;}
     Hora* getHora(){return this->horaActual;}
+    void setFechaHora(int hora,int day, int month, int year);
 
     void RegistrarAerolinea(Aerolinea* aerolinea);
     void RegistrarTerminal(Terminal* Terminal);
@@ -57,14 +58,17 @@ public:
     void GenerarInforme();
 
     void ComenzarActividad();
-    void InterrumpirActividad();
     void RetomarActividad();
+    void InterrumpirActividad();
     void CierreActividad();
+    void ResetearAeropuerto();
+
     void ActualizarVuelosAtendidos();
     void ActualizarTiempoOperacion();
-    void ActualizarAerolineas();
 
-    int PistaDisponible();
+    int VuelosEnEspera();
+    int VuelosEnUso();
+    void DeterminarTiemposVuelo();
 
     int VerificarEstadoVuelos();
     void ActualizarColaVuelos();

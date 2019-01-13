@@ -13,3 +13,21 @@ void Terminal::ImprimirDatosTerminal() {
     cout << "Plataformas Disponibles : " << this->disponibles << "\n\n";
 
 }
+
+int Terminal::OcuparPlataforma() {
+    if(this->disponibles!=0) {
+        this->disponibles--;
+        return 0;
+    }else{
+        return 1;
+    }
+}
+
+int Terminal::DesocuparPlataforma() {
+    if(this->disponibles!=numPlataformas) {
+        this->disponibles++;
+        return 0;
+    }else{
+        return 1;
+    }
+}

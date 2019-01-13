@@ -14,7 +14,7 @@ using namespace std;
 
 class Vuelo {
 public:
-    Vuelo(string codigo,string origen,string destino,int tiempoVuelo,int horaSalida,int day, int month, int year,int prioridad,Avion* avion){
+    Vuelo(string codigo,string origen,string destino,int tipo,int tiempoVuelo,int horaSalida,int day, int month, int year,int prioridad,Avion* avion){
         this->codigo=codigo;
         this->origen=origen;
         this->destino=destino;
@@ -24,6 +24,7 @@ public:
         this->tiempoVuelo=tiempoVuelo;
         this->prioridad=prioridad;
         this->etapa=7;
+        this->tipo=tipo;
         this->avion=avion;
         this->horaCarga=new Hora(this->horaSalida->getHora());
         this->horaCarga->Sum(this->getAvion()->getTiempoCargaDescarga());
@@ -57,6 +58,7 @@ private:
     int tiempoVuelo;
     int tiempoEspera;
     int etapa;
+    int tipo;
     Avion* avion;
 public:
     string getDestino(){return this->destino;}
@@ -71,11 +73,9 @@ public:
     int getPrioridad();
     Avion *getAvion();
     int getEtapa();
-    int getTiempoVuelo();
-    void setTiempoEspera(int tiempo){this->tiempoEspera=tiempo;}
-    int getTiempoEspera(){return this->tiempoEspera;}
     bool isDisponbilidadPista();
     string getCodigo();
+    Fecha * getFecha();
 
     void ChangeDisponibilidadPista();
     void NextEtapa();
@@ -86,6 +86,8 @@ public:
     void AterrizajeRealizado();
     void DescargaRealizada();
     void FinVuelo();
+    void Despegando();
+    void Aterrizando();
     void AddTiempoEspera();
 
     void ImprimirDatosVuelo();

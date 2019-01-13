@@ -6,19 +6,25 @@
 
 void Vuelo::ImprimirDatosVuelo() {
     if(this->etapa==7)
-        cout << "VUELO EN ESPERA\n";
+        cout << "VUELO POR SALIR\n";
     else
         if (this->etapa==6)
             cout << "VUELO CARGANDO\n";
         else
             if (this->etapa==5)
-                cout << "VUELO DESPEGANDO\n";
+                if((this->disponbilidadPista==1 && this->tipo==1) || (this->tipo==0))
+                    cout << "VUELO DESPEGANDO\n";
+                else
+                    cout << "VUELO EN ESPERA\n";
             else
                 if (this->etapa==4)
                     cout << "VUELO EN PROGRESO \n";
                 else
                     if (this->etapa==3)
-                        cout << "VUELO ATERRIZANDO\n";
+                        if ((this->disponbilidadPista && this->tipo==0) || (this->tipo==1))
+                            cout << "VUELO ATERRIZANDO\n";
+                        else
+                            cout << "VUELO EN ESPERA\n";
                     else
                         if (this->etapa==2)
                             cout << "VUELO DESCARGANDO\n";
@@ -29,6 +35,7 @@ void Vuelo::ImprimirDatosVuelo() {
                                 if (this->etapa==0){
                                     cout << "VUELO FINALIZADO\n";
                                     cout << "Tiempo de Vuelo: " << this->tiempoVuelo << " minutos\n";
+                                    cout << "Tiempo de Uso Pista: " << this->avion->getTiempoDespegueAterrizaje() << " minutos\n";
                                     cout << "Tiempo de Espera: " << this->tiempoEspera << " minutos\n";
     }
     cout << " Codigo: "<< this->codigo<<"\n";
@@ -58,37 +65,51 @@ void Vuelo::ImprimirDatosVuelo() {
     (this->avion)->ImprimirDatosAvion();
 }
 void Vuelo::InicioVuelo(){
-    cout<< "El Vuelo " << this->codigo << " esta listo para Cargar desde el Aeropuerto de "<< this->origen << "\n";
+    cout<< "El Vuelo " << this->codigo << " esta listo para CARGAR desde el Aeropuerto de "<< this->origen << ". CARGANDO...\n";
     this->NextEtapa();
 }
 
 void Vuelo::AterrizajeRealizado() {
-    cout<< "El Vuelo " << this->codigo << " ha Aterrizado en el Aeropuerto de "<< this->destino << "\n";
+    cout<< "El Vuelo " << this->codigo << " ha ATERRIZADO en el Aeropuerto de "<< this->destino << ". DESCARGANDO...\n";
     this->NextEtapa();
 }
 
+void Vuelo::Despegando() {
+    cout<< "El Vuelo " << this->codigo << " esta DESPEGANDO del Aeropuerto  de "<< this->origen << "\n";
+}
+
+void Vuelo::Aterrizando() {
+    cout<< "El Vuelo " << this->codigo << " esta ATERRIZADO en el Aeropuerto de "<< this->destino << "\n";
+}
+
 void Vuelo::CargaRealizada() {
-    cout<< "El Vuelo " << this->codigo << " ha Cargado en el Aeropuerto de "<< this->origen <<"\n";
+    if(this->tipo==0)
+        cout<< "El Vuelo " << this->codigo << " ha CARGADO en el Aeropuerto de "<< this->origen <<". DESPEGANDO...\n";
+    else
+        cout<< "El Vuelo " << this->codigo << " ha CARGADO en el Aeropuerto de "<< this->origen <<"\n";
     this->NextEtapa();
 }
 
 void Vuelo::DespegueRealizado() {
-    cout<< "El Vuelo " << this->codigo << " ha Despegado del Aeropuerto de "<< this->origen << "\n";
+    cout<< "El Vuelo " << this->codigo << " ha DESPEGADO del Aeropuerto de "<< this->origen << ". VOLANDO...\n";
     this->NextEtapa();
 }
 
 void Vuelo::VueloRealizado() {
-    cout<< "El Vuelo " << this->codigo << " ha terminado su tiempo de Vuelo\n";
+    if(this->tipo==1)
+        cout<< "El Vuelo " << this->codigo << " ha TERMINADO su tiempo de Vuelo. ATERRIZANDO...\n";
+    else
+        cout<< "El Vuelo " << this->codigo << " ha TERMINADO su tiempo de Vuelo\n";
     this->NextEtapa();
 }
 
 void Vuelo::DescargaRealizada() {
-    cout<< "El Vuelo " << this->codigo << " ha Descargado en el Aeropuerto de "<< this->destino <<"\n";
+    cout<< "El Vuelo " << this->codigo << " ha DESCARGADO en el Aeropuerto de "<< this->destino <<". REABASTECIEDO LA AERONAVE...\n";
     this->NextEtapa();
 }
 
 void Vuelo::FinVuelo(){
-    cout<< "El Vuelo " << this->codigo << " se ha reabastecido en el Aeropuerto de "<< this->destino <<"\n";
+    cout<< "El Vuelo " << this->codigo << " se ha REABASTECIDO en el Aeropuerto de "<< this->destino <<"\n";
     this->NextEtapa();
 }
 
@@ -106,10 +127,6 @@ Hora *Vuelo::getHoraSalida(){
 
 Avion *Vuelo::getAvion() {
     return this->avion;
-}
-
-int Vuelo::getTiempoVuelo() {
-    return this->tiempoVuelo;
 }
 
 Hora *Vuelo::getHoraCarga() {
@@ -163,4 +180,7 @@ string Vuelo::getCodigo(){
     return codigo;
 }
 
+Fecha * Vuelo::getFecha() {
+    return this->fecha;
+}
 

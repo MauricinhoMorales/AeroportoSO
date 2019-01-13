@@ -20,7 +20,7 @@ void Avion::ImprimirDatosAvion() {
 }
 
 int Avion::CalcularTiempoCargaDescarga() {
-    return ((int)(sqrt(this->capacidad)*2));
+    return ((int)(sqrt(this->capacidad))*2);
 }
 
 int Avion::CalcularTiempoReabastecimiento() {

@@ -26,6 +26,9 @@ public:
     void AddMonth();
     void AddYear();
 
+    int isIgual(Fecha* fecha);
+    int CompararFecha(Fecha * fecha);
+
     void ImprimirFecha();
 
 };
