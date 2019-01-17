@@ -13,6 +13,7 @@
 #include <string.h>
 #include <windows.h>
 #include <conio.h>
+#include<fstream>
 
 
 long int const segundo=320000000;
@@ -43,6 +44,7 @@ private:
 
 public:
     void RegistrarAerolinea(Aerolinea* aerolinea);
+    void RegistrarVuelosAerolinea(Aerolinea* origen, Aerolinea * destino);
     void RegistrarTerminal(Terminal* Terminal);
     void RegistrarVueloGeneral(Vuelo* vuelo);
     void AgregarAColaVuelos(Vuelo* vuelo);

@@ -2,6 +2,7 @@
 // Created by Mauricio on 27-12-2018.
 //
 
+#include <sstream>
 #include "Aeroporto.h"
 
 void Aeroporto::ComenzarActividad(){  // como se ordena el beta
@@ -15,7 +16,6 @@ void Aeroporto::RetomarActividad() {
 
 void Aeroporto::InterrumpirActividad() {   //OPCION DE MENU PARA PARAR ACTIVIDAD
     this->GenerarInforme();
-    this->ImprimirInforme();
 }
 
 void Aeroporto::CierreActividad() {    // OPCION DEL MENU CERRAR
@@ -23,36 +23,136 @@ void Aeroporto::CierreActividad() {    // OPCION DEL MENU CERRAR
 }
 
 void Aeroporto::GenerarInforme(){ //ESCRIBIR UN ARCHIVO
+    ofstream archivo;
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)");
+    if (archivo.fail()) {
+        cout << "ERROR: No se pudo abrir el archivo";
+        exit(1);
+    }
+
+    archivo << "-----------------------------------INFORME-----------------------------------------\n";
+    archivo << "NOMBRE DEL AEROPUERTO: "<< this->nombre << "\n";
+    archivo << "HORA DE EMISION: ";
+
+    archivo.close();
+
+    this->horaActual->ImprimirHoraArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+
+    archivo << "\n";
+    archivo << "VUELOS ATENDIDOS: "<< this->vuelosAtendidos << " vuelos\n";
+    archivo << "VUELOS EN USO DE PISTA: "<< this->VuelosEnUso() << " vuelos \n";
+    archivo << "VUELOS EN ESPERA POR PISTA: "<< this->VuelosEnEspera() << " vuelos \n";
+    archivo << "TIEMPO OPERACION: "<< this->tiempOperante << " minutos \n";
+    archivo << "-----------------------------------AEROLINEAS---------------------------------------\n";
+
+    archivo.close();
+
+    for(list<Aerolinea*>::iterator it=this->aerolineas.begin();it!=this->aerolineas.end();it++)
+        (*it)->ImprimirVuelosArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+
+    archivo << "-----------------------------------TERMINALES---------------------------------------\n";
+
+    archivo.close();
+
+    for(list<Terminal*>::iterator it=this->terminales.begin();it!=this->terminales.end();it++)
+        (*it)->ImprimirDatosTerminalArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+
+    archivo << "-----------------------------------VUELOS-------------------------------------------\n";
+
+    archivo.close();
+
+    for(list<Vuelo*>::iterator it=this->vuelos.begin();it!=this->vuelos.end();it++)
+        (*it)->ImprimirDatosVueloArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+
+    archivo << "-----------------------------VUELOS EN ESPERA POR PISTA-----------------------------\n";
+
+    archivo.close();
+
+    for(list<Vuelo*>::iterator it=this->colaVuelos.begin();it!=this->colaVuelos.end();it++)
+        if (!(*it)->isDisponbilidadPista())
+            (*it)->ImprimirDatosVueloArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+
+    archivo << "------------------------------------------------------------------------------------\n";
+
+   archivo.close();
 
 }
 
 void Aeroporto::CargarArchivo() {    //CARGAR ESTRUCTURAS LEER DEL ARCHIVO
-    Terminal *terminal1 = new Terminal("CR20", 10, 10, 0);
-    Terminal *terminal3 = new Terminal("QW01", 7, 1, 1);
-    Aerolinea *aerolinea1 = new Aerolinea("AmericanAirlines");
-    Aerolinea *aerolinea2 = new Aerolinea("Rutaca");
-    Vuelo *vuelo1 = new Vuelo("SALIDA 1", "Brazil", "Chile",1,10,    10 ,4, 1, 2019, 1, new Avion("67", 60, 150, 1));
-    Vuelo *vuelo2 = new Vuelo("SALIDA 2", "Brazil", "Colombia",1,10, 10, 4, 1, 2019, 1, new Avion("67", 60, 150, 1));
-    Vuelo *vuelo3 = new Vuelo("SALIDA 3", "Brazil", "USA",1,10,      10, 4, 1, 2019, 1, new Avion("67", 60, 150, 1));
-    Vuelo *vuelo4 = new Vuelo("LLEGADA 1", "Brazil",  "Chile",1,10,    10 ,4, 1, 2019, 1, new Avion("67", 60, 150, 1));
-    Vuelo *vuelo5 = new Vuelo("LLEGADA 2", "Brazil", "Uruguay",1,10, 10, 4, 1, 2019, 1, new Avion("67", 60, 150, 1));
-    Vuelo *vuelo6 = new Vuelo("LLEGADA 3", "Brazil", "Colombia",1,10,   10, 4, 1, 2019, 1, new Avion("67", 60, 150, 1));
-    this->RegistrarTerminal(terminal1);
-    this->RegistrarTerminal(terminal3);
-    aerolinea1->RegistrarVuelo(vuelo1);
-    aerolinea1->RegistrarVuelo(vuelo2);
-    aerolinea2->RegistrarVuelo(vuelo3);
-    aerolinea1->RegistrarVuelo(vuelo4);
-    aerolinea1->RegistrarVuelo(vuelo5);
-    aerolinea2->RegistrarVuelo(vuelo6);
-    this->RegistrarVueloGeneral(vuelo1);
-    this->RegistrarVueloGeneral(vuelo2);
-    this->RegistrarVueloGeneral(vuelo3);
-    this->RegistrarVueloGeneral(vuelo4);
-    this->RegistrarVueloGeneral(vuelo5);
-    this->RegistrarVueloGeneral(vuelo6);
-    this->RegistrarAerolinea(aerolinea2);
-    this->RegistrarAerolinea(aerolinea1);
+    ifstream archivo;
+    string texto , sLinea,nombre="new";
+    string arrAux[15];
+
+
+    // ASIGNACION DE LA AEROLINEA
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Aeropuerto.txt)", ios::in);
+    if (archivo.fail()) {
+        cout << "ERROR: No se pudo abrir el archivo";
+        exit(1);
+    }
+
+    Aerolinea *aerolinea;
+
+    while (!archivo.eof()) {
+        getline(archivo, texto);
+        int i = 0;
+        stringstream ssTexto (texto);
+        while (getline(ssTexto, sLinea, ' ')){
+            arrAux[i] = sLinea;
+            i++;
+        }
+        if (arrAux[0]!=nombre) {
+            if(nombre!="new")
+                this->RegistrarAerolinea(aerolinea);
+            aerolinea = new Aerolinea(arrAux[0]);
+            nombre=arrAux[0];
+        }
+        Avion *avion = new Avion(arrAux[1],stof(arrAux[2]),stoi(arrAux[3]),stoi(arrAux[4])) ;
+        Vuelo *vuelo = new Vuelo(arrAux[5],arrAux[6],arrAux[7],stoi(arrAux[8]),stoi(arrAux[9]),stoi(arrAux[10]),stoi(arrAux[11]),stoi(arrAux[12]),stoi(arrAux[13]),stoi(arrAux[14]),avion);
+        aerolinea->RegistrarVuelo(vuelo);
+        this->RegistrarVueloGeneral(vuelo);
+    }
+    if(nombre!="new")
+        this->RegistrarAerolinea(aerolinea);
+    archivo.close();
+    cout << "SE CARGO CORRECTAMENTE EL ARCHIVO: AEROPUERTO.txt \n";
+
+    //Cerramos el archivo
+
+    //ASIGNACION DEL TERMINAL
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Terminales.txt)", ios::in);
+    if (archivo.fail()) {
+        cout << "No se pudo abrir el archivo";
+        exit(1);
+    }
+    while (!archivo.eof()) {
+        getline(archivo, texto);
+
+        int i = 0;
+        stringstream ssTexto (texto);
+        while (getline(ssTexto, sLinea, ' ')) {
+            arrAux[i] = sLinea;
+            i++;
+        }
+        Terminal *terminal = new Terminal(arrAux[0],stoi(arrAux[1]),stoi(arrAux[2]),stoi(arrAux[3])) ;
+        this->RegistrarTerminal(terminal);
+    }
+    archivo.close();
+    cout << "SE CARGO CORRECTAMENTE EL ARCHIVO: TERMINALES.txt\n";
+
+    //Cerramos el archivo
 }
 
 void Aeroporto::IniciarGestion() {    //REALIZAR LA GESTION
@@ -108,6 +208,9 @@ void Aeroporto::IniciarGestion() {    //REALIZAR LA GESTION
 void Aeroporto::ImprimirInforme() {
     cout << "-----------------------------------INFORME-----------------------------------------\n";
     cout << "NOMBRE DEL AEROPUERTO: "<< this->nombre << "\n";
+    cout << "HORA DE EMISION: ";
+    this->horaActual->ImprimirHora();
+    cout << "\n";
     cout << "VUELOS ATENDIDOS: "<< this->vuelosAtendidos << " vuelos\n";
     cout << "VUELOS EN USO DE PISTA: "<< this->VuelosEnUso() << " vuelos \n";
     cout << "VUELOS EN ESPERA POR PISTA: "<< this->VuelosEnEspera() << " vuelos \n";
@@ -154,8 +257,14 @@ void Aeroporto::RegistrarTerminal(Terminal* terminal) {
 
 void Aeroporto::RegistrarAerolinea(Aerolinea* aerolinea) {
     list<Aerolinea*>::iterator it;
-    for(it=this->aerolineas.begin();(it!=this->aerolineas.end()) && (aerolinea->getNombre()>(*it)->getNombre());it++);
-    this->aerolineas.insert(it,aerolinea);
+    for(it=this->aerolineas.begin();(it!=this->aerolineas.end()) && (aerolinea->getNombre()>=(*it)->getNombre());it++);
+    this->aerolineas.insert(it, aerolinea);
+}
+
+void Aeroporto::RegistrarVuelosAerolinea(Aerolinea* origen, Aerolinea * destino){
+    list<Vuelo*>::iterator it;
+    for (it = origen->getVuelos().begin();it != origen->getVuelos().end(); it++);
+        destino->RegistrarVuelo((*it));
 }
 
 void Aeroporto::RegistrarVueloGeneral(Vuelo* vuelo) {

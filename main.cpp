@@ -29,7 +29,7 @@ int main() {
         cout << "* PARA INTERRUMPIR ACTIVIDAD MANTENER PRESIONADO LA TECLA <SHIFT>\n";
         cout << "* CARGAR LOS ARCHIVOS .txt QUE SE UTILIZARAN EN LA GESTION \n";
         cout << "----------------------------------MENU---------------------------------------------\n";
-        cout << "INTRODUZCA LA OPCION QUE DESEA REALIZAR: \n 1)COMENZAR ACTIVIDAD DEL AEROPUERTO \n 2)RETOMAR ACTIVIDAD DEL AEROPUERTO \n 0)CIERRE ACTIVIDAD \n";
+        cout << "INTRODUZCA LA OPCION QUE DESEA REALIZAR: \n 1)COMENZAR ACTIVIDAD DEL AEROPUERTO \n 2)RETOMAR ACTIVIDAD DEL AEROPUERTO \n 3)IMPRIMIR INFORME \n 0)CIERRE ACTIVIDAD \n";
         cin >> op;
         cout << "-----------------------------------------------------------------------------------\n\n";
 
@@ -47,6 +47,8 @@ int main() {
                 aeropuerto->RetomarActividad();
                 aeropuerto->InterrumpirActividad();
                 break;
+            case 3:
+                aeropuerto->ImprimirInforme();
         }
         cout << "\n";
     }

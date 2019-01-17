@@ -13,6 +13,22 @@ void Terminal::ImprimirDatosTerminal() {
     cout << "Plataformas Disponibles : " << this->disponibles << "\n\n";
 }
 
+void Terminal::ImprimirDatosTerminalArchivo() {
+    ofstream archivo;
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+
+    if (this->tipo==0)
+        archivo << "Terminal de Pasajeros\n";
+    else
+        archivo << "Terminal de Carga\n";
+    archivo << "Codigo: "<< this->codigo<<"\n";
+    archivo << "Numero de Plataformas : " << this->numPlataformas << "\n";
+    archivo << "Plataformas Disponibles : " << this->disponibles << "\n\n";
+
+    archivo.close();
+}
+
+
 int Terminal::OcuparPlataforma() {
     if(this->disponibles!=0) {
         this->disponibles--;

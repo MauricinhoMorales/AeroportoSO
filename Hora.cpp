@@ -16,6 +16,22 @@ void Hora::ImprimirHora() {
     cout << this->hora%100 << " ";
 }
 
+void Hora::ImprimirHoraArchivo() {
+
+    ofstream archivo;
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+
+    archivo << "Hora: ";
+    if (int(this->hora / 100)<10)
+        archivo <<"0";
+    archivo << int(this->hora / 100) << ":";
+    if (this->hora%100<10)
+        archivo << "0";
+    archivo << this->hora%100 << " ";
+
+    archivo.close();
+}
+
 int Hora::AddTime() {
     hora++;
     if(hora%100==60){

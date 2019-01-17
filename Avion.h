@@ -7,6 +7,8 @@
 #include <iostream>
 #include<math.h>
 #include <string.h>
+#include<fstream>
+
 using namespace std;
 
 class Avion {
@@ -40,6 +42,7 @@ public:
     int CalcularTiempoDespegueAterrizaje();
 
     void ImprimirDatosAvion();
+    void ImprimirDatosAvionArchivo();
 };
 
 

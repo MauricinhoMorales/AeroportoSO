@@ -4,7 +4,8 @@
 
 #ifndef UNTITLED1_HORA_H
 #define UNTITLED1_HORA_H
-
+#include<fstream>
+using namespace std;
 
 class Hora {
 public:
@@ -22,6 +23,7 @@ public:
     int AddTime();
     int Sum(int tiempo);
     void ImprimirHora();
+    void ImprimirHoraArchivo();
 };
 
 

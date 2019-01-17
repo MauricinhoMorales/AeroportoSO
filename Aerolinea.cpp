@@ -12,6 +12,19 @@ void Aerolinea::ImprimirVuelos() {
         (*it)->ImprimirDatosVuelo();
 }
 
+void Aerolinea::ImprimirVuelosArchivo() {
+    ofstream archivo;
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+
+    archivo << "AEROLINEA: " << this->nombre << "\n\n";
+    archivo << "***** VUELOS *****\n\n";
+
+    archivo.close();
+
+    for(list<Vuelo*>::iterator it=this->vuelos.begin();it!=this->vuelos.end();it++)
+        (*it)->ImprimirDatosVueloArchivo();
+}
+
 void Aerolinea::RegistrarVuelo(Vuelo* vuelo) {
     list<Vuelo*>::iterator it;
     for (it = this->vuelos.begin();(it != this->vuelos.end()) && (vuelo->getFecha()->CompararFecha((*it)->getFecha())); it++);

@@ -62,3 +62,18 @@ void Fecha::ImprimirFecha() {
         cout << "0";
     cout << this->month << "-"<< this->year << "\n";
 }
+
+void Fecha::ImprimirFechaArchivo() {
+    ofstream archivo;
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+
+    archivo << "Fecha: ";
+    if (this->day<10)
+        archivo << "0";
+    archivo << this->day << "-";
+    if(this->month<10)
+        archivo << "0";
+    archivo << this->month << "-"<< this->year << "\n";
+
+    archivo.close();
+}

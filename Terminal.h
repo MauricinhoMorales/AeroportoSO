@@ -6,6 +6,8 @@
 #define UNTITLED1_TERMINAL_H
 #include <iostream>
 #include <string.h>
+#include<fstream>
+
 using namespace std;
 
 class Terminal {
@@ -29,6 +31,7 @@ public:
     int DesocuparPlataforma();
 
     void ImprimirDatosTerminal();
+    void ImprimirDatosTerminalArchivo();
 };
 
 #endif //UNTITLED1_TERMINAL_H

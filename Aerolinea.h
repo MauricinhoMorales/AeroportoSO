@@ -9,6 +9,8 @@
 #include <iostream>
 #include <string.h>
 #include <list>
+#include<fstream>
+
 using namespace std;
 
 class Aerolinea {
@@ -29,6 +31,7 @@ public:
     int VuelosAtendidos();
 
     void ImprimirVuelos();
+    void ImprimirVuelosArchivo();
 };
 
 

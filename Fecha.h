@@ -4,7 +4,8 @@
 
 #ifndef UNTITLED1_FECHA_H
 #define UNTITLED1_FECHA_H
-
+#include<fstream>
+using namespace std;
 
 class Fecha {
 public:
@@ -30,6 +31,7 @@ public:
     int CompararFecha(Fecha * fecha);
 
     void ImprimirFecha();
+    void ImprimirFechaArchivo();
 
 };
 

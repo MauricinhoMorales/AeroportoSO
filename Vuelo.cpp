@@ -64,6 +64,102 @@ void Vuelo::ImprimirDatosVuelo() {
     cout << " Avion:\n";
     (this->avion)->ImprimirDatosAvion();
 }
+
+void Vuelo::ImprimirDatosVueloArchivo() {
+    ofstream archivo;
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+
+    if(this->etapa==7)
+        archivo << "VUELO POR SALIR\n";
+    else
+    if (this->etapa==6)
+        archivo << "VUELO CARGANDO\n";
+    else
+    if (this->etapa==5)
+        if((this->disponbilidadPista==1 && this->tipo==1) || (this->tipo==0))
+            archivo << "VUELO DESPEGANDO\n";
+        else
+            archivo << "VUELO EN ESPERA\n";
+    else
+    if (this->etapa==4)
+        archivo << "VUELO EN PROGRESO \n";
+    else
+    if (this->etapa==3)
+        if ((this->disponbilidadPista && this->tipo==0) || (this->tipo==1))
+            archivo << "VUELO ATERRIZANDO\n";
+        else
+            archivo << "VUELO EN ESPERA\n";
+    else
+    if (this->etapa==2)
+        archivo << "VUELO DESCARGANDO\n";
+    else
+    if (this->etapa==1)
+        archivo << "VUELO REABASTECIENDOCE\n";
+    else
+    if (this->etapa==0){
+        archivo << "VUELO FINALIZADO\n";
+        archivo << "Tiempo de Vuelo: " << this->tiempoVuelo << " minutos\n";
+        archivo << "Tiempo de Uso Pista: " << this->avion->getTiempoDespegueAterrizaje() << " minutos\n";
+        archivo << "Tiempo de Espera: " << this->tiempoEspera << " minutos\n";
+    }
+    archivo << " Codigo: "<< this->codigo<<"\n";
+    archivo << " Origen: " << this->origen << " - Destino: " << this->destino <<"\n";
+
+    archivo.close();
+
+    this->horaSalida->ImprimirHoraArchivo();
+    this->fecha->ImprimirFechaArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+    archivo << " Carga: ";
+    archivo.close();
+
+    this->horaCarga->ImprimirHoraArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+    archivo <<" ";
+    archivo << "Despegue: ";
+    archivo.close();
+
+    this->horaDespegue->ImprimirHoraArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+    archivo <<" ";
+    archivo << "Vuelo: ";
+    archivo.close();
+
+    this->horaVuelo->ImprimirHoraArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+    archivo <<"\n";
+    archivo << " Aterrizaje: ";
+    archivo.close();
+
+    this->horaAterrizaje->ImprimirHoraArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+    archivo <<" ";
+    archivo << "Descarga: ";
+    archivo.close();
+
+    this->horaDescarga->ImprimirHoraArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+    archivo <<" ";
+    archivo << "Finalizado: ";
+    archivo.close();
+
+    this->horaFinalizar->ImprimirHoraArchivo();
+
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+    archivo <<"\n";
+    archivo << " Disponibiliad de pista: " <<this->disponbilidadPista << "\n";
+    archivo << " Avion:\n";
+    archivo.close();
+
+    (this->avion)->ImprimirDatosAvionArchivo();
+}
+
 void Vuelo::InicioVuelo(){
     cout<< "El Vuelo " << this->codigo << " esta listo para CARGAR desde el Aeropuerto de "<< this->origen << ". CARGANDO...\n";
     this->NextEtapa();

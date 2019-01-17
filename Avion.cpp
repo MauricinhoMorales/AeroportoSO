@@ -19,6 +19,27 @@ void Avion::ImprimirDatosAvion() {
     cout << "   Tiempo Reabastecimiento: " << this->getTiempoReabastecimiento() << " minutos\n\n";
 }
 
+void Avion::ImprimirDatosAvionArchivo() {
+    ofstream archivo;
+    archivo.open(R"(C:\Users\mauricio\CLionProjects\untitled1\Informe.txt)", ios::app);
+
+    if(this->tipo==0) {
+        archivo << "   Avion Comercial\n";
+        archivo << "   Codigo: " << this->codigo << "\n";
+        archivo << "   Capacidad: " << this->capacidad << " pasajeros\n\n";
+    }else{
+        archivo << "   Avion de Carga\n";
+        archivo << "   Codigo: " << this->codigo << "\n";
+        archivo << "   Capacidad: " << this->capacidad << " toneladas\n\n";
+    }
+    archivo << "   Tiempo DespegueCargaDescarga: " << this->getTiempoCargaDescarga() << " minutos\n";
+    archivo << "   Tiempo DespegueAterrizaje: " << this->getTiempoDespegueAterrizaje() << " minutos\n";
+    archivo << "   Tiempo Reabastecimiento: " << this->getTiempoReabastecimiento() << " minutos\n\n";
+
+    archivo.close();
+}
+
+
 int Avion::CalcularTiempoCargaDescarga() {
     return ((int)(sqrt(this->capacidad))*2);
 }

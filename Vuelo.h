@@ -5,9 +5,10 @@
 #ifndef UNTITLED1_VUELO_H
 #define UNTITLED1_VUELO_H
 
-#include "Avion.h"
 #include <iostream>
 #include <string.h>
+#include<fstream>
+#include "Avion.h"
 #include "Fecha.h"
 #include "Hora.h"
 using namespace std;
@@ -91,6 +92,7 @@ public:
     void AddTiempoEspera();
 
     void ImprimirDatosVuelo();
+    void ImprimirDatosVueloArchivo();
 };
 
 #endif //UNTITLED1_VUELO_H
