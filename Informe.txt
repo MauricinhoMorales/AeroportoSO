@@ -1,0 +1,126 @@
+-----------------------------------INFORME-----------------------------------------
+NOMBRE DEL AEROPUERTO: Brazil
+HORA DE EMISION: Hora: 00:06 
+VUELOS ATENDIDOS: 0 vuelos
+VUELOS EN USO DE PISTA: 0 vuelos 
+VUELOS EN ESPERA POR PISTA: 0 vuelos 
+TIEMPO OPERACION: 0 minutos 
+-----------------------------------AEROLINEAS---------------------------------------
+AEROLINEA: AmericanAirline
+
+***** VUELOS *****
+
+VUELO POR SALIR
+ Codigo: 576UJ
+ Origen: Brazil - Destino: Colombia
+Hora: 00:20 Fecha: 04-01-2019
+ Carga: Hora: 00:40  Despegue: Hora: 00:46  Vuelo: Hora: 01:11 
+ Aterrizaje: Hora: 01:17  Descarga: Hora: 01:37  Finalizado: Hora: 01:47 
+ Disponibiliad de pista: 0
+ Avion:
+   Avion Comercial
+   Codigo: TR4F
+   Capacidad: 100 pasajeros
+
+   Tiempo DespegueCargaDescarga: 20 minutos
+   Tiempo DespegueAterrizaje: 6 minutos
+   Tiempo Reabastecimiento: 10 minutos
+
+AEROLINEA: AmericanAirlines
+
+***** VUELOS *****
+
+VUELO POR SALIR
+ Codigo: 578Y85
+ Origen: Brazil - Destino: Colombia
+Hora: 00:20 Fecha: 04-01-2019
+ Carga: Hora: 00:40  Despegue: Hora: 00:46  Vuelo: Hora: 01:01 
+ Aterrizaje: Hora: 01:07  Descarga: Hora: 01:27  Finalizado: Hora: 01:37 
+ Disponibiliad de pista: 0
+ Avion:
+   Avion Comercial
+   Codigo: TR5F
+   Capacidad: 100 pasajeros
+
+   Tiempo DespegueCargaDescarga: 20 minutos
+   Tiempo DespegueAterrizaje: 6 minutos
+   Tiempo Reabastecimiento: 10 minutos
+
+VUELO POR SALIR
+ Codigo: 578YJHG
+ Origen: Brazil - Destino: Colombia
+Hora: 00:30 Fecha: 04-01-2019
+ Carga: Hora: 00:50  Despegue: Hora: 00:56  Vuelo: Hora: 01:16 
+ Aterrizaje: Hora: 01:22  Descarga: Hora: 01:42  Finalizado: Hora: 01:52 
+ Disponibiliad de pista: 0
+ Avion:
+   Avion de Carga
+   Codigo: TR5T
+   Capacidad: 100 toneladas
+
+   Tiempo DespegueCargaDescarga: 20 minutos
+   Tiempo DespegueAterrizaje: 6 minutos
+   Tiempo Reabastecimiento: 10 minutos
+
+-----------------------------------TERMINALES---------------------------------------
+Terminal de Pasajeros
+Codigo: CR7
+Numero de Plataformas : 2
+Plataformas Disponibles : 2
+
+Terminal de Carga
+Codigo: 5TY
+Numero de Plataformas : 6
+Plataformas Disponibles : 6
+
+-----------------------------------VUELOS-------------------------------------------
+VUELO POR SALIR
+ Codigo: 576UJ
+ Origen: Brazil - Destino: Colombia
+Hora: 00:20 Fecha: 04-01-2019
+ Carga: Hora: 00:40  Despegue: Hora: 00:46  Vuelo: Hora: 01:11 
+ Aterrizaje: Hora: 01:17  Descarga: Hora: 01:37  Finalizado: Hora: 01:47 
+ Disponibiliad de pista: 0
+ Avion:
+   Avion Comercial
+   Codigo: TR4F
+   Capacidad: 100 pasajeros
+
+   Tiempo DespegueCargaDescarga: 20 minutos
+   Tiempo DespegueAterrizaje: 6 minutos
+   Tiempo Reabastecimiento: 10 minutos
+
+VUELO POR SALIR
+ Codigo: 578Y85
+ Origen: Brazil - Destino: Colombia
+Hora: 00:20 Fecha: 04-01-2019
+ Carga: Hora: 00:40  Despegue: Hora: 00:46  Vuelo: Hora: 01:01 
+ Aterrizaje: Hora: 01:07  Descarga: Hora: 01:27  Finalizado: Hora: 01:37 
+ Disponibiliad de pista: 0
+ Avion:
+   Avion Comercial
+   Codigo: TR5F
+   Capacidad: 100 pasajeros
+
+   Tiempo DespegueCargaDescarga: 20 minutos
+   Tiempo DespegueAterrizaje: 6 minutos
+   Tiempo Reabastecimiento: 10 minutos
+
+VUELO POR SALIR
+ Codigo: 578YJHG
+ Origen: Brazil - Destino: Colombia
+Hora: 00:30 Fecha: 04-01-2019
+ Carga: Hora: 00:50  Despegue: Hora: 00:56  Vuelo: Hora: 01:16 
+ Aterrizaje: Hora: 01:22  Descarga: Hora: 01:42  Finalizado: Hora: 01:52 
+ Disponibiliad de pista: 0
+ Avion:
+   Avion de Carga
+   Codigo: TR5T
+   Capacidad: 100 toneladas
+
+   Tiempo DespegueCargaDescarga: 20 minutos
+   Tiempo DespegueAterrizaje: 6 minutos
+   Tiempo Reabastecimiento: 10 minutos
+
+-----------------------------VUELOS EN ESPERA POR PISTA-----------------------------
+------------------------------------------------------------------------------------

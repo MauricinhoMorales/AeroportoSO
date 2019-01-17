@@ -1,0 +1,3 @@
+AmericanAirlines TR5T 200 100 1 578YJHG Brazil Colombia 1 20 30 4 1 2019 3
+AmericanAirlines TR5F 200 100 0 578Y85 Brazil Colombia 1 15 20 4 1 2019 3
+AmericanAirline TR4F 200 100 0 576UJ Brazil Colombia 1 25 20 4 1 2019 3
