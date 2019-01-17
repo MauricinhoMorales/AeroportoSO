@@ -57,10 +57,7 @@ void Aeroporto::CargarArchivo() {    //CARGAR ESTRUCTURAS LEER DEL ARCHIVO
 
 void Aeroporto::IniciarGestion() {    //REALIZAR LA GESTION
     while(this->VerificarEstadoVuelos()) {
-        if (GetKeyState(VK_SHIFT) & 0x8000) {
-            break;
-        }
-        for (long int i = 0; i < segundo; i++);
+
         cout << "----------------------------------HORA Y FECHA -------------------------------------\n";
         if (this->horaActual->AddTime())
             this->fecha->AddDay();
@@ -101,6 +98,10 @@ void Aeroporto::IniciarGestion() {    //REALIZAR LA GESTION
         this->AddTimeEspera();
         this->ActualizarVuelosAtendidos();
         this->ActualizarTiempoOperacion();
+        if (GetKeyState(VK_SHIFT) & 0x8000) {
+            break;
+        }
+        for (long int i = 0; i < segundo; i++);
     }
 }
 
